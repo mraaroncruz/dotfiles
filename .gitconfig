@@ -1,0 +1,142 @@
+[user]
+    name = Aaron Cruz
+    email = aaron@aaroncruz.com
+
+[alias]
+    a = add
+    aa = add --all
+    ae = add --edit
+    ai = add --interactive
+    amend = commit --amend -C HEAD
+    ap = add --patch
+    aliases = config --get-regexp alias
+    au = add --update
+    b = branch
+    c = commit
+    ca = commit --amend
+    changes = diff --name-status -r
+    cm = commit --message
+    co = checkout
+    cpc = cherry-pick
+    d = diff
+    dc = diff --cached
+    div = divergence
+    ds = diff --staged
+    h = help
+    irb = rebase --interactive
+    l = log --oneline --decorate
+    lg = log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    ls-ignored = ls-files --exclude-standard --ignored --others
+    m = merge
+    mm = merge --no-ff
+    msg = commit --allow-empty -m
+    p = cherry-pick -s
+    pick = cherry-pick
+    prune-remotes = "!for remote in `git remote`; do git remote prune $remote; done"
+    r = remote
+    ra = !git log --graph --abbrev-commit --date=relative -20 --all --pretty='format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'
+    rb = rebase
+    rba = rebase --abort
+    rbc = rebase --continue
+    rbs = rebase --skip
+    rh = reset --hard
+    ru = remote update --prune
+    s = status --short --branch
+    sl = shortlog
+    sm = submodule
+    sma = submodule add
+    smu = submodule update --init
+    st = stash
+    stl = stash list
+    stp = stash pop
+    undo = reset --soft HEAD^
+    wd = diff --color-words
+    wds = diff --color-words --staged
+
+[advice]
+    pushNonFastForward = false
+    statusHints = false
+
+[apply]
+    whitespace = nowarn
+
+[diff]
+    renames = copies
+    mnemonicprefix = true
+    tool = Kaleidoscope
+
+[difftool]
+    prompt = false
+
+[pager]
+    color = true
+
+[branch]
+    autosetupmerge = true
+
+[color]
+    ui = auto
+    
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+    
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+    
+[svn]
+    brokenSymlinkWorkaround = false
+
+[push]
+    default = tracking
+
+[help]
+    autocorrect = 0
+
+[core]
+    excludesfile = ~/.gitignore
+    whitespace = trailing-space,space-before-tab
+    quotepath = false
+
+[rerere]
+    enabled = 1
+
+[git-tmbundle]
+    gitx-path = /usr/local/bin/gitx
+
+[difftool "Kaleidoscope"]
+    cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
+
+[merge "bundleinstall"]
+    name = bundle install
+    driver = bundle install
+
+[merge "railsschema"]
+    name = newer Rails schema version
+    driver = "ruby -e '\n\
+        system %(git), %(merge-file), %(--marker-size=%L), %(%A), %(%O), %(%B)\n\
+        b = File.read(%(%A))\n\
+        b.sub!(/^<+ .*\\nActiveRecord::Schema\\.define.:version => (\\d+). do\\n=+\\nActiveRecord::Schema\\.define.:version => (\\d+). do\\n>+ .*/) do\n\
+          %(ActiveRecord::Schema.define(:version => #{[$1, $2].max}) do)\n\
+        end\n\
+        File.open(%(%A), %(w)) {|f| f.write(b)}\n\
+        exit 1 if b.include?(%(<)*%L)'"
+
+[merge]
+    stat = true
+    diff = vimdiff
+
+[diff "zip"]
+  textconv = unzip -c -a
+
+[github]
+    user = pferdefleisch 
