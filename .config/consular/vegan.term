@@ -1,0 +1,11 @@
+cd = "cd /Users/aaron/Sites/veganismismurder/padrino &&"
+window do
+  pane do
+    pane "#{cd} bin/padrino start"
+    pane "#{cd} tail -f log/development.log"
+    pane "#{cd} bin/padrino console"
+  end
+  tab do
+    run "#{cd} v."
+  end
+end

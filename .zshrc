@@ -3,8 +3,9 @@ autoload -U promptinit
 promptinit
 prompt grb
 setopt AUTO_MENU
-autoload -U compinit
+autoload -Uz compinit
 compinit
+zstyle ':completion:*' special-dirs true
 
 export ANDROID_HOME="/Developer/SDKs/Android2.2/tools"
 export PATH=/Users/aaron/.gem/ruby/1.8/bin:/usr/local:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin/:/Library/PostgreSQL/8.4/bin:$ANDROID_HOME:$PATH:

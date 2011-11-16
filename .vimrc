@@ -284,3 +284,5 @@ map <Leader>d :NERDTreeToggle<CR>
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
 let NERDTreeShowHidden=1
 map <C-n> o<C-[>
+
+:au BufNewFile,BufRead *.term,Rakefile,Gemfile,Procfile,Vagrantfile,*.rake,*.ru setlocal ft=ruby

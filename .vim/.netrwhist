@@ -1,3 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/Users/aaron/Sites/hsocial'
+let g:netrw_dirhist_2='/Users/aaron/Sites/naiku'
+let g:netrw_dirhist_3='/Users/aaron/Tasks'
+let g:netrw_dirhist_4='/Users/aaron/Sites/veganismismurder/padrino'
+let g:netrw_dirhist_5='/Users/aaron/Sites/refinery'
+let g:netrw_dirhist_6='/Users/aaron/Sites/refinery_demo'
+let g:netrw_dirhist_7='/Users/aaron/Sites/jobschneider/app'
+let g:netrw_dirhist_8='/Users/aaron/Tasks'
