@@ -4,6 +4,7 @@ window do
     pane "#{cd} bin/unicorn -p 3000"
     pane "#{cd} tail -f log/development.log"
     pane "#{cd} bin/rails console"
+    pane "#{cd} bin/spin serve -Ispec --rspec"
   end
   tab do
     run "#{cd} v."

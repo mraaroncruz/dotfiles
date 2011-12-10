@@ -3,8 +3,8 @@ window do
   pane do
     pane "#{cd} bin/rails s"
     pane "#{cd} tail -f log/development.log"
-    pane "#{cd} bin/rails console"
-    pane "#{cd} bin/guard"
+    pane "#{cd} bundle exec rails console"
+    pane "#{cd} bundle exec guard"
   end
   tab do
     run "#{cd} v."
