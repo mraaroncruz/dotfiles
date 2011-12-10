@@ -118,3 +118,5 @@ function whodoneit() {
 
 alias rr='rbenv rehash'
 bindkey "^[[3~" delete-char
+alias start='consular start'
+alias edit='consular edit'

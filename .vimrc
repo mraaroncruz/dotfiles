@@ -1,5 +1,7 @@
 set term=xterm-256color
 set t_Co=256
+set textwidth=0
+set wrapmargin=0
 " Use Vim settings, rather then Vi settings (much better!).
 :set guioptions-=m  "remove menu bar
 :set guioptions-=T  "remove toolbar
@@ -23,11 +25,11 @@ set backspace=indent,eol,start
 
 imap jj <C-[>
 " command t make escape work
-"let g:CommandTCancelMap=['<ESC>']
+let g:CommandTCancelMap=['<ESC>']
 " start in views or models
-"map <leader>v :CommandT app/views/<cr>
-"map <leader>m :CommandT app/models/<cr>
-map :ctcache :CommandTFlush
+map <leader>v :CommandT app/views/<cr>
+map <leader>m :CommandT app/models/<cr>
+map <leader>t :CommandTFlush<cr>:CommandT<cr>
 " Make ' more useful, swap it with `
 nnoremap ' `
 nnoremap ` '
@@ -56,7 +58,7 @@ set title                     " show title in xterm
 set wildmenu
 
 " Ignore these files when completing names and in Explorer
-set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,bundle
+set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,bundle,.sass-cache
 
 " Specify which keys can move the cursor left/right to move to the
 " previous/next line when the cursor is on the first/last character in that
@@ -175,7 +177,7 @@ noremap P P`[
 set background=dark          " we are using a dark background
 syntax on                    " syntax highlighting on
 
-colorscheme grb256 
+colorscheme grb256
 set guifont=Mensch\ 13
 set antialias
 
@@ -212,7 +214,7 @@ match WhitespaceEOL /\s\+$/
 "    Enable folding, but by default make it act like folding is off, because folding is
 "    annoying in anything but a few rare cases
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set foldenable               " Turn on folding
+"set foldenable               " Turn on folding
 "set foldmethod=indent       " Make folding indent sensitive
 set foldmethod=marker        " 
 set foldlevel=79            " Don't autofold anything (but I can still fold manually)

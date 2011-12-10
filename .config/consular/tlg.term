@@ -1,0 +1,11 @@
+cd = "cd /Users/aaron/Sites/tlg/volunteer_data &&"
+window do
+  pane do
+    pane "#{cd} bin/unicorn -p 3000"
+    pane "#{cd} tail -f log/development.log"
+    pane "#{cd} bin/rails console"
+  end
+  tab do
+    run "#{cd} v."
+  end
+end
