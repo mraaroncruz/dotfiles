@@ -177,7 +177,7 @@ noremap P P`[
 set background=dark          " we are using a dark background
 syntax on                    " syntax highlighting on
 
-colorscheme grb256
+colorscheme xoria256
 set guifont=Mensch\ 13
 set antialias
 

@@ -1,9 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/aaron/Sites/ichmachpolitik/app'
-let g:netrw_dirhist_2='/Users/aaron/Sites/tlg/volunteer_data'
-let g:netrw_dirhist_3='/Users/aaron/Sites/egs/coming_soon'
-let g:netrw_dirhist_4='/Users/aaron/Sites/ichmachpolitik/old'
-let g:netrw_dirhist_5='/Users/aaron/Sites/ichmachpolitik/master'
-let g:netrw_dirhist_6='/Users/aaron/Sites/ichmachpolitik/new_with_rails3'
-let g:netrw_dirhist_7='/Users/aaron/Sites/ichmachpolitik/rails2'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/Users/aaron/Sites/jobschneider/app'
