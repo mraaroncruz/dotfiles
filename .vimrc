@@ -174,11 +174,11 @@ noremap P P`[
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=dark          " we are using a dark background
+set background=light         " we are using a dark background
 syntax on                    " syntax highlighting on
 
-colorscheme xoria256
-set guifont=Mensch\ 13
+colorscheme solarized
+set guifont=Mensch:h13
 set antialias
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

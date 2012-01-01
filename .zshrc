@@ -41,7 +41,7 @@ alias powstart="curl get.pow.cx | sh"
 
 alias g="git"
 alias ports="sudo lsof -i -P"
-export EDITOR="vim"
+export EDITOR="mvim"
 ## terminal color fun
 export CLICOLOR=1
 #export LSCOLORS=caFxCxDxBxegedabagacad
@@ -60,7 +60,7 @@ alias sp="staticmatic preview ."
 
 alias v.="vim ."
 alias m="mate"
-alias m.="mate ."
+alias m.="mvim ."
 alias s.="open -a 'Sublime Text 2' ."
 alias s="open -a 'Sublime Text 2'"
 # Git tab completion
@@ -78,10 +78,13 @@ alias duh='du -csh'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
 alias b="bundle"
-alias bi="bundle install"
+alias bi="bundle install --binstubs --path vendor/bundle --without production"
 alias bu="bundle update"
 alias bc="bundle check"
 alias be="bundle exec"
+
+alias migrate="bundle exec rake db:migrate"
+
 alias nstart="sudo nginx"
 alias nreload="sudo nginx -s reload"
 
