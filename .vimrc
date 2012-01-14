@@ -2,10 +2,11 @@ set term=xterm-256color
 set t_Co=256
 set textwidth=0
 set wrapmargin=0
+map ,z :colorscheme grb256<cr>:set background=dark<cr>
 " Use Vim settings, rather then Vi settings (much better!).
-:set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
@@ -164,6 +165,7 @@ imap <silent> <S-tab> <C-v><tab>
 " allow deleting selection without updating the clipboard (yank buffer)
 vnoremap x "_x
 vnoremap X "_X
+
 :nnoremap <C-e> :buffers<CR>:b<Space>
 
 " don't move the cursor after pasting
@@ -174,12 +176,15 @@ noremap P P`[
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=light         " we are using a dark background
+" set background=light         " we are using a dark background
+set background=dark
 syntax on                    " syntax highlighting on
 
-colorscheme solarized
+" colorscheme solarized
+colorscheme twilight
 set guifont=Mensch:h13
 set antialias
+set guioptions-=L
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files/Backups
@@ -281,9 +286,10 @@ imap <C-l> <Space>=><Space>
 " NERD_Tree support
 let NERDTreeIgnore=['\.rbc$', '\~$']
 map <Leader>d :NERDTreeToggle<CR>
+map <leader>c :NERDTreeFind<cr>
 
 " CTags
-map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
+" map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
 let NERDTreeShowHidden=1
 map <C-n> o<C-[>
 

@@ -84,6 +84,8 @@ alias bc="bundle check"
 alias be="bundle exec"
 
 alias migrate="bundle exec rake db:migrate"
+alias deploy="bundle exec rake vlad:deploy"
+alias easy_deploy="bundle exec rake vlad:easy_deploy"
 
 alias nstart="sudo nginx"
 alias nreload="sudo nginx -s reload"
@@ -123,3 +125,4 @@ alias rr='rbenv rehash'
 bindkey "^[[3~" delete-char
 alias start='consular start'
 alias edit='consular edit'
+alias pryr="pry -r ./config/environment -r rails/console/app -r rails/console/helpers"
