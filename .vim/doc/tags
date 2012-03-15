@@ -58,6 +58,12 @@
 :VCSUpdate	vcscommand.txt	/*:VCSUpdate*
 :VCSVimDiff	vcscommand.txt	/*:VCSVimDiff*
 AddToLispWords	clojure.txt	/*AddToLispWords*
+AnsiEsc	AnsiEsc.txt	/*AnsiEsc*
+AnsiEsc-contents	AnsiEsc.txt	/*AnsiEsc-contents*
+AnsiEsc-copyright	AnsiEsc.txt	/*AnsiEsc-copyright*
+AnsiEsc-history	AnsiEsc.txt	/*AnsiEsc-history*
+AnsiEsc-manual	AnsiEsc.txt	/*AnsiEsc-manual*
+AnsiEsc.txt	AnsiEsc.txt	/*AnsiEsc.txt*
 DocLookupInteractive	clojure.txt	/*DocLookupInteractive*
 DocLookupWord	clojure.txt	/*DocLookupWord*
 EvalBlock	clojure.txt	/*EvalBlock*

@@ -3,12 +3,25 @@ set t_Co=256
 set textwidth=0
 set wrapmargin=0
 map ,z :colorscheme grb256<cr>:set background=dark<cr>
+" let g:netrw_liststyle=3 " Use tree-mode as default view
+let g:netrw_browse_split=4 " Open file in previous buffer
+let g:netrw_preview=1 " preview window shown in a vertically split
 " Use Vim settings, rather then Vi settings (much better!).
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 " This must be first, because it changes other options as a side effect.
 set nocompatible
+
+" save read only
+cmap w!! %!sudo tee > /dev/null %
+
+" better up down on wrapped
+nnoremap j gj
+nnoremap k gk
+
+" Pressing return clears highlighted search
+nnoremap <CR> :nohlsearch<CR>/<BS>
 
 " Use pathogen (http://www.vim.org/scripts/script.php?script_id=2332) for
 " easier bundle management
@@ -32,6 +45,7 @@ map <leader>v :CommandT app/views/<cr>
 map <leader>m :CommandT app/models/<cr>
 map <leader>t :CommandTFlush<cr>:CommandT<cr>
 " Make ' more useful, swap it with `
+
 nnoremap ' `
 nnoremap ` '
 
@@ -95,7 +109,10 @@ nmap <silent> <leader>n :silent :nohlsearch<CR>
 " invisible spaces visually, and additionally use the # sign at the end of
 " lines to mark lines that extend off-screen. For more info, see :h listchars.
 set list
+" set listchars=tab:▶\,trail:◀,extends:»,precedes:«
 set listchars=tab:▸\ ,eol:¬,trail:.,extends:#,nbsp:.
+
+nmap \o :set paste!<CR>:set paste?<CR>
 
 " Make trailing whitespace visible with ,s
 nmap <silent> <leader>s :set nolist!<CR>
@@ -180,8 +197,8 @@ noremap P P`[
 set background=dark
 syntax on                    " syntax highlighting on
 
-" colorscheme solarized
-colorscheme twilight
+colorscheme solarized
+" colorscheme twilight
 set guifont=Mensch:h13
 set antialias
 set guioptions-=L
@@ -241,11 +258,10 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-map <C-f> <C-w>_<C-w><Pipe>
+" map <C-f> <C-w>_<C-w><Pipe>
 
 nnoremap <C-W>O :call MaximizeToggle ()<CR>
 nnoremap <C-W>o :call MaximizeToggle ()<CR>
-nnoremap <C-f> :call MaximizeToggle ()<CR>
 nnoremap <C-W><C-O> :call MaximizeToggle ()<CR>
 
 function! MaximizeToggle()
@@ -274,7 +290,7 @@ autocmd FileType ruby let g:rubycomplete_rails = 1
 " ... and to include Classes in global completions
 autocmd FileType ruby let g:rubycomplete_classes_in_global = 1
 " Thorfile, Rakefile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,config.ru}    set ft=ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,config.ru,Capfile,*.rake}    set ft=ruby
 
 " Syntax highlight shell scripts as per POSIX,
 " not the original Bourne shell which very few use
@@ -294,3 +310,30 @@ let NERDTreeShowHidden=1
 map <C-n> o<C-[>
 
 :au BufNewFile,BufRead *.term,Rakefile,Gemfile,Procfile,Vagrantfile,*.rake,*.ru setlocal ft=ruby
+
+" View schema or routes file
+:map <leader>vs :e db/schema.rb<cr>
+:map <leader>vr :e config/routes.rb<cr>
+"nmap <cr> :nohl<cr>
+
+" source: http://vim.wikia.com/wiki/VimTip102
+" Let <Tab> do all the autocompletion
+" function! Smart_TabComplete()
+" 	let line = getline('.') 					" curline
+" 	let substr = strpart(line, -1, col('.'))	" from start to cursor
+" 	let substr = matchstr(substr, "[^ \t]*$")	" word till cursor
+" 	if (strlen(substr)==0)						" nothing to match on empty string
+" 		return "\<tab>"
+" 	endif
+" 	let has_period = match(substr, '\.') != -1	" position of period, if any
+" 	let has_slash = match(substr, '\/') != -1	" position of slash, if any
+" 	if (!has_period && !has_slash)
+" 		return "\<C-X>\<C-P>"					" existing text matching
+" 	elseif ( has_slash )
+" 		return "\<C-X>\<C-F>"					" file matching
+" 	else
+" 		return "\<C-X>\<C-O>"					" plugin matching
+" 	endif
+" endfunction
+" inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+
