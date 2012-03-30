@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/aaron/Projects/tlg/volunteer_data'
-let g:netrw_dirhist_2='/Users/aaron/.dotfiles/.vim'
-let g:netrw_dirhist_3='/Users/aaron/Downloads'
-let g:netrw_dirhist_4='/Users/aaron/Projects/tlg/volunteer_data'
-let g:netrw_dirhist_5='/Users/aaron/Projects/jobschneider/jobapp/vendor/bundle/ruby/1.9.1/gems/simple_form-1.5.2'
-let g:netrw_dirhist_6='/Users/aaron/.dotfiles/tools'
