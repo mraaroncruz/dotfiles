@@ -138,15 +138,12 @@ set nojoinspaces
 vmap Q gq
 nmap Q gqap
 
-" Make j and k behave more natural when working with long, wrapped lines
-nnoremap j gj
-nnoremap k gk
-
 " Make the tab key match bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
 
 " Make ';' an alias for ':'
+nnoremap : ;
 nnoremap ; :
 
 " Useful trick when I've forgotten to `sudo' before editing a file:
@@ -336,4 +333,6 @@ map <C-n> o<C-[>
 " 	endif
 " endfunction
 " inoremap <tab> <c-r>=Smart_TabComplete()<CR>
-
+let vimclojure#HighlightBuiltins=1 
+let vimclojure#ParenRainbow=1
+let g:slime_target = "tmux"
