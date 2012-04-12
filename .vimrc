@@ -143,7 +143,7 @@ nnoremap <tab> %
 vnoremap <tab> %
 
 " Make ';' an alias for ':'
-nnoremap : ;
+"nnoremap : ;
 nnoremap ; :
 
 " Useful trick when I've forgotten to `sudo' before editing a file:
