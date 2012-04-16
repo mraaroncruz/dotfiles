@@ -31,3 +31,6 @@
 [submodule ".vim/bundle/vimroom"]
 	path = .vim/bundle/vimroom
 	url = https://github.com/mikewest/vimroom.git
+[submodule ".vim/bundle/autoclose.vim"]
+	path = .vim/bundle/autoclose.vim
+	url = https://github.com/scottstvnsn/autoclose.vim.git

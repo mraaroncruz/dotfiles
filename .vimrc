@@ -150,7 +150,7 @@ nnoremap ; :
 cmap w!! w !sudo tee % >/dev/null
 
 " Automagically save files when focus is lost
-au FocusLost * :wa
+au FocusLost * silent! :wa
 
 " ,W strips all trailing whitespace from current file
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -336,3 +336,19 @@ map <C-n> o<C-[>
 let vimclojure#HighlightBuiltins=1 
 let vimclojure#ParenRainbow=1
 let g:slime_target = "tmux"
+
+" Match parens, square and curly brackets
+" but only if cursor is at end of line
+
+" function! ConditionalPairMap(open, close)
+"   let line = getline('.')
+"   let col = col('.')
+"   if col < col('$') || stridx(line, a:close, col + 1) != -1
+"     return a:open
+"   else
+"     return a:open . a:close . repeat("\<left>", len(a:close))
+"   endif
+" endf
+" inoremap <expr> ( ConditionalPairMap('(', ')')
+" inoremap <expr> { ConditionalPairMap('{', '}')
+" inoremap <expr> [ ConditionalPairMap('[', ']')
