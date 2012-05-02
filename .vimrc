@@ -43,7 +43,8 @@ let g:CommandTCancelMap=['<ESC>']
 " start in views or models
 map <leader>v :CommandT app/views/<cr>
 map <leader>m :CommandT app/models/<cr>
-map <leader>t :CommandTFlush<cr>:CommandT<cr>
+map <leader>t :CtrlP<CR>
+" "map <leader>t :CommandTFlush<cr>:CommandT<cr>
 " Make ' more useful, swap it with `
 
 nnoremap ' `
