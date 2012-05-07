@@ -1,0 +1,23 @@
+#! /usr/bin/env ruby
+if ARGV[0].nil? || ARGV[0] == "-h"
+  puts <<-EOS
+
+  USE: rreplace DIR /string/replacement/flags
+
+  EOS
+  exit
+end
+
+dir = ARGV[0]
+regex = ARGV[1]
+find, replace, flags = regex.split('/')[1..-1]
+
+file_list = %x[ack -l #{find} #{dir}].split
+
+file_list.each do |f|
+  text = File.read f
+  replaced = text.gsub(/#{find}/, replace)
+  File.open f, 'w' do |f|
+    f.write replaced
+  end
+end
