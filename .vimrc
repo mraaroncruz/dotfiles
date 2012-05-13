@@ -353,3 +353,6 @@ let g:slime_target = "tmux"
 " inoremap <expr> ( ConditionalPairMap('(', ')')
 " inoremap <expr> { ConditionalPairMap('{', '}')
 " inoremap <expr> [ ConditionalPairMap('[', ']')
+
+let g:user_zen_expandabbr_key = '<c-i><c-i>'
+let g:use_zen_complete_tag = 1
