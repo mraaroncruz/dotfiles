@@ -354,5 +354,7 @@ let g:slime_target = "tmux"
 " inoremap <expr> { ConditionalPairMap('{', '}')
 " inoremap <expr> [ ConditionalPairMap('[', ']')
 
-let g:user_zen_expandabbr_key = '<c-i><c-i>'
+let g:ctrlp_custom_ignore = '\.git$\|vendor\/bundle$\|vendor/vagrant$\|\.svn$'
+
+let g:user_zen_expandabbr_key = '<c-b><c-b>'
 let g:use_zen_complete_tag = 1

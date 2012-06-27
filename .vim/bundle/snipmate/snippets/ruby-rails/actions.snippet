@@ -1,0 +1,45 @@
+def index
+	@${1:model_class_name} = ${2:ModelClassName}.all
+end${3}
+
+def show
+	@$1 = $2.find(params[:id])
+end${3}
+
+def new
+	@$1 = $2.new
+end${3}
+
+def create
+	@$1 = $2.new(params[:$1])
+
+		if @$1.save
+			flash[:notice] = '$2 was successfully created.'
+			redirect_to(@$1)
+		else
+			render :action => "new"
+		end
+	end
+end${3}
+
+def edit
+	@$1 = $2.find(params[:id])
+end
+
+def update
+	@$1 = $2.find(params[:id])
+
+	if @$1.update_attributes(params[:$1])
+		flash[:notice] = '$2 was successfully updated.'
+		redirect_to(@$1)
+	else
+		render :action => "edit"
+	end
+end${3}
+
+def destroy
+	@$1 = $2.find(params[:id])
+	@$1.destroy
+
+	redirect_to($1s_url)
+end${3}
