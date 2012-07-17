@@ -2,6 +2,7 @@ set term=xterm-256color
 set t_Co=256
 set textwidth=0
 set wrapmargin=0
+set complete=.,b,u,]
 map ,z :colorscheme grb256<cr>:set background=dark<cr>
 " let g:netrw_liststyle=3 " Use tree-mode as default view
 let g:netrw_browse_split=4 " Open file in previous buffer
@@ -19,6 +20,10 @@ cmap w!! %!sudo tee > /dev/null %
 " better up down on wrapped
 nnoremap j gj
 nnoremap k gk
+
+" insert a single character
+nmap gt i_<Esc>r
+nmap gb a_<Esc>r
 
 " Pressing return clears highlighted search
 nnoremap <CR> :nohlsearch<CR>/<BS>
@@ -358,3 +363,22 @@ let g:ctrlp_custom_ignore = '\.git$\|vendor\/bundle$\|vendor/vagrant$\|\.svn$'
 
 let g:user_zen_expandabbr_key = '<c-b><c-b>'
 let g:use_zen_complete_tag = 1
+
+function! NS_camelcase(s)
+    "upcase the first letter
+    let toReturn = substitute(a:s, '^\(.\)', '\=toupper(submatch(1))', '')
+    "turn all '_x' into 'X'
+    return substitute(toReturn, '_\(.\)', '\=toupper(submatch(1))', 'g')
+endfunction
+
+function! NS_underscore(s)
+    "down the first letter
+    let toReturn = substitute(a:s, '^\(.\)', '\=tolower(submatch(1))', '')
+    "turn all 'X' into '_x'
+    return substitute(toReturn, '\([A-Z]\)', '\=tolower("_".submatch(1))', 'g')
+endfunction
+
+function! Snippet_RubyClassNameFromFilename()
+    let name = expand("%:t:r")
+    return NS_camelcase(name)
+endfunction
