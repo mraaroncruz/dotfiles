@@ -1,0 +1,2 @@
+# For irb and pry, get Ctrl+r style command history
+bind "^R" em-inc-search-prev
