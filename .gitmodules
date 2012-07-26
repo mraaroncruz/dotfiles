@@ -49,3 +49,6 @@
 [submodule ".vim/bundle/vim-ruby-refactoring.git"]
 	path = .vim/bundle/vim-ruby-refactoring.git
 	url = git://github.com/ecomba/vim-ruby-refactoring.git
+[submodule ".vim/bundle/mru.vim"]
+	path = .vim/bundle/mru.vim
+	url = git://github.com/vim-scripts/mru.vim.git
