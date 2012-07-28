@@ -154,7 +154,9 @@ ResetSnippets()	snipMate.txt	/*ResetSnippets()*
 RunTests	clojure.txt	/*RunTests*
 SourceLookupInteractive	clojure.txt	/*SourceLookupInteractive*
 SourceLookupWord	clojure.txt	/*SourceLookupWord*
+StartLocalRepl	clojure.txt	/*StartLocalRepl*
 StartRepl	clojure.txt	/*StartRepl*
+ToggleParenRainbow	clojure.txt	/*ToggleParenRainbow*
 VCSCommandCVSDiffOpt	vcscommand.txt	/*VCSCommandCVSDiffOpt*
 VCSCommandCVSExec	vcscommand.txt	/*VCSCommandCVSExec*
 VCSCommandCommitOnWrite	vcscommand.txt	/*VCSCommandCommitOnWrite*
@@ -173,6 +175,7 @@ VCSCommandSVNDiffExt	vcscommand.txt	/*VCSCommandSVNDiffExt*
 VCSCommandSVNDiffOpt	vcscommand.txt	/*VCSCommandSVNDiffOpt*
 VCSCommandSVNExec	vcscommand.txt	/*VCSCommandSVNExec*
 VCSCommandSplit	vcscommand.txt	/*VCSCommandSplit*
+^	clojure.txt	/*^*
 aw	clojure.txt	/*aw*
 b:VCSCommandCommand	vcscommand.txt	/*b:VCSCommandCommand*
 b:VCSCommandOriginalBuffer	vcscommand.txt	/*b:VCSCommandOriginalBuffer*
@@ -207,6 +210,7 @@ el	clojure.txt	/*el*
 ep	clojure.txt	/*ep*
 et	clojure.txt	/*et*
 fd	clojure.txt	/*fd*
+ft-clj-indent	clojure.txt	/*ft-clj-indent*
 ft-clj-syntax	clojure.txt	/*ft-clj-syntax*
 g:CommandTAcceptSelectionMap	command-t.txt	/*g:CommandTAcceptSelectionMap*
 g:CommandTAcceptSelectionSplitMap	command-t.txt	/*g:CommandTAcceptSelectionSplitMap*
@@ -456,6 +460,7 @@ rails-vim-integration	rails.txt	/*rails-vim-integration*
 rails.txt	rails.txt	/*rails.txt*
 rf	clojure.txt	/*rf*
 rt	clojure.txt	/*rt*
+sR	clojure.txt	/*sR*
 si	clojure.txt	/*si*
 snipMate	snipMate.txt	/*snipMate*
 snipMate-$#	snipMate.txt	/*snipMate-$#*
@@ -486,6 +491,7 @@ textile-commands	textile.txt	/*textile-commands*
 textile-credits	textile.txt	/*textile-credits*
 textile-requirements	textile.txt	/*textile-requirements*
 textile.txt	textile.txt	/*textile.txt*
+tr	clojure.txt	/*tr*
 vcscommand	vcscommand.txt	/*vcscommand*
 vcscommand-buffer-management	vcscommand.txt	/*vcscommand-buffer-management*
 vcscommand-buffer-variables	vcscommand.txt	/*vcscommand-buffer-variables*

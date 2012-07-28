@@ -2,6 +2,7 @@ set term=xterm-256color
 set t_Co=256
 set textwidth=0
 set wrapmargin=0
+set complete=.,b,u,]
 map ,z :colorscheme grb256<cr>:set background=dark<cr>
 " let g:netrw_liststyle=3 " Use tree-mode as default view
 let g:netrw_browse_split=4 " Open file in previous buffer
@@ -19,6 +20,10 @@ cmap w!! %!sudo tee > /dev/null %
 " better up down on wrapped
 nnoremap j gj
 nnoremap k gk
+
+" insert a single character
+nmap gt i_<Esc>r
+nmap gb a_<Esc>r
 
 " Pressing return clears highlighted search
 nnoremap <CR> :nohlsearch<CR>/<BS>
@@ -43,7 +48,8 @@ let g:CommandTCancelMap=['<ESC>']
 " start in views or models
 map <leader>v :CommandT app/views/<cr>
 map <leader>m :CommandT app/models/<cr>
-map <leader>t :CommandTFlush<cr>:CommandT<cr>
+map <leader>t :CtrlP<CR>
+" "map <leader>t :CommandTFlush<cr>:CommandT<cr>
 " Make ' more useful, swap it with `
 
 nnoremap ' `
@@ -138,22 +144,19 @@ set nojoinspaces
 vmap Q gq
 nmap Q gqap
 
-" Make j and k behave more natural when working with long, wrapped lines
-nnoremap j gj
-nnoremap k gk
-
 " Make the tab key match bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
 
 " Make ';' an alias for ':'
+"nnoremap : ;
 nnoremap ; :
 
 " Useful trick when I've forgotten to `sudo' before editing a file:
 cmap w!! w !sudo tee % >/dev/null
 
 " Automagically save files when focus is lost
-au FocusLost * :wa
+au FocusLost * silent! :wa
 
 " ,W strips all trailing whitespace from current file
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -336,4 +339,46 @@ map <C-n> o<C-[>
 " 	endif
 " endfunction
 " inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+let vimclojure#HighlightBuiltins=1 
+let vimclojure#ParenRainbow=1
+let g:slime_target = "tmux"
 
+" Match parens, square and curly brackets
+" but only if cursor is at end of line
+
+" function! ConditionalPairMap(open, close)
+"   let line = getline('.')
+"   let col = col('.')
+"   if col < col('$') || stridx(line, a:close, col + 1) != -1
+"     return a:open
+"   else
+"     return a:open . a:close . repeat("\<left>", len(a:close))
+"   endif
+" endf
+" inoremap <expr> ( ConditionalPairMap('(', ')')
+" inoremap <expr> { ConditionalPairMap('{', '}')
+" inoremap <expr> [ ConditionalPairMap('[', ']')
+
+let g:ctrlp_custom_ignore = '\.git$\|vendor\/bundle$\|vendor/vagrant$\|\.svn$'
+
+let g:user_zen_expandabbr_key = '<c-b><c-b>'
+let g:use_zen_complete_tag = 1
+
+function! NS_camelcase(s)
+    "upcase the first letter
+    let toReturn = substitute(a:s, '^\(.\)', '\=toupper(submatch(1))', '')
+    "turn all '_x' into 'X'
+    return substitute(toReturn, '_\(.\)', '\=toupper(submatch(1))', 'g')
+endfunction
+
+function! NS_underscore(s)
+    "down the first letter
+    let toReturn = substitute(a:s, '^\(.\)', '\=tolower(submatch(1))', '')
+    "turn all 'X' into '_x'
+    return substitute(toReturn, '\([A-Z]\)', '\=tolower("_".submatch(1))', 'g')
+endfunction
+
+function! Snippet_RubyClassNameFromFilename()
+    let name = expand("%:t:r")
+    return NS_camelcase(name)
+endfunction
