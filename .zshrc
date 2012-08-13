@@ -34,10 +34,12 @@ ZSH_THEME="terminalparty"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(osx bundler brew rails3 heroku pow sprunge pferdefleisch)
-plugins=(osx brew rails3 pow sprunge pferdefleisch)
+plugins=(rails3 pferdefleisch)
 
 source $ZSH/oh-my-zsh.sh
 unsetopt correct_all
 
 # Customize to your needs...
 export PATH=/Users/aaron/bin:/usr/local/sbin:/usr/local/bin:/Users/aaron/.gem/ruby/1.8/bin:/usr/local:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin/:/Library/PostgreSQL/8.4/bin:/Developer/SDKs/Android2.2/tools:/Users/aaron/.rbenv/shims:/Users/aaron/.rbenv/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin::~/.gem/ruby/1.8/bin
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
