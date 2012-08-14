@@ -6,8 +6,15 @@ set -g base-index 1
 set -s escape-time 0
 
 # Remove default binding since we’re replacing
+<<<<<<< HEAD
+bind \ split-window -h
+bind - split-window -v
+#bind \ set default-path $PWD \; split-window -v\; set default-path ~/
+#bind - set default-path $PWD \; split-window\; set default-path ~/
+=======
 bind / split-window -h
 bind - split-window -v
+>>>>>>> origin/master
 unbind %
 
 # Pane navigation
