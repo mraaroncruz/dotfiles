@@ -1,0 +1,193 @@
+IRC- and irssi-Workshop
+=======================
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+IRC- and irssi-Workshop by Wernfried 'amne' Haas for Security Treff Graz
+and grml-Developers on 12 Juli 2006 at FH Joanneum.
+Notes taken by Michael 'mika' Prokop.
+
+Latest change: Mon Jul 17 21:53:20 CEST 2006 [mika]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Statusbar:
+----------
+
+[19:23] [+grml(+ir)] [2:#grml(+lnt 19)]
+ clock    ^    ^      ^  ^    ^^^^ ^
+          |    |      |  |    |||| |
+    username   | window chan. |||| mode level 19
+            + = positive/set  ||||
+            i = invisible     ||||
+            r = restricted    http://freenode.net/using_the_network.shtml
+
+Switch Window:
+--------------
+
+esc-cursor or alt-cursor => switch window
+alt-q => window 11
+alt-w => window 12
+/window 30 => window 30
+
+People with qwertz layout probably want to swap meta-y and meta-z:
+
+  /BIND meta-z change_window 16
+  /BIND -delete meta-y
+
+Add network and server:
+-----------------------
+
+/network add -nick mikap -realname "Michael Prokop" freenode
+/server add -auto -network freenode chat.freenode.net
+/network add freenode -autosendcmd /FNAUTH   => send self defined alias /FNAUTH
+                                                by default to freenode
+
+Join server:
+------------
+
+/connect freenode
+
+Close connection to server:
+---------------------------
+
+/disconnect freenode
+
+Autojoin channel:
+-----------------
+
+/channel add -auto #grml-workshop freenode
+
+List channels:
+--------------
+
+/list
+
+Display configuration of irssi:
+--------------------------------
+
+/set
+/set autocreate_own_query => display setting of variable autocreate_own_query
+
+Kick user:
+----------
+
+/kick username     => just kick
+/kickban username  => kick and username can't join channel again
+/ban username      => can't join channel again
+/unban username    => unban again
+/knockout <time> <nick> <reason> => kickban a user for specific time
+
+Window actions:
+---------------
+
+/window move left  => move window to left
+/window move 1     => move window to position 1
+/layout save       => store/remember window settings
+
+Diff stuff:
+-----------
+
+/who               => display users in channel in status window
+/who mika          => display info about user mika
+/wii mika          => display info about user mika including idle state (depends on network)
+/names             => display users in channel in channel window
+/set user_name fo  => set (ident) username to 'fo'
+/away -all wenn mich jemand braucht, ich bin auf der toilette => set away-status on all networkß
+/me is away        => not welcome in many channels
+/mode +q idiot     => don't allow messages from user idiot to channel (freenode special)
+/quit              => leave all channels and quit irssi
+/WC                => leave channel and close window
+/part              => leave channel but don't close window
+/mod +i            => only allow invited users (/invite user)
+/stats p           => display stats members
+/alias FNAUTH  set autocreate_own_query OFF;msg -freenode nickserv identify PASSWORD;wait -freenode 3000;msg -freenode
+                   chanserv invite #channel;msg -freenode nickserv set unfiltered on;set autocreate_own_query ON;
+                   /quote capab identify-msg
+/reload            => reload configuration (~/.irssi/config)
+/ /CALC 3 * 3      => write "/CALC 3 * 3" into the channel
+/exec -o uptime    => display uptime
+
+Direct Client Connect:
+----------------------
+
+/dcc chat username     => direct chat with username
+/msg =username message => send "message" to username without connection to server
+
+NickServ (nick name handling):
+------------------------------
+
+/query NickServ         => create new window to talk to NickServ
+help                    => get usage information
+register <password>     => register your nick
+info <user>             => request information about user
+set password <newpass>  => set new passwort
+set email foo@b.invalid => set mailaddress
+set hide email          => don't display mailaddress in "info" information
+link mikap_ <pass>      => link nickname mikap_ to mikap (mikap_ has to be registered as well of course)
+set master mikap        => set master nickname to mikap
+
+ChanServ (channel handling - depends from IRC net):
+---------------------------------------------------
+
+/query ChanServ
+register #channel <password>    => register channel
+set #grml-workshop mlock +ton-m =>
+set secureops                   =>
+level #channel list             => display level information
+level #channel set user 50      => set user to level 50
+level #channel set autoop 10    => "cmdop" -> be able to /op
+access #channel add user        =>
+invite #channel                 => all users in channel are allowed to send "/invite"s
+recover username                +
+release username                => kill username and release the nickname (also see the ghost command)
+
+Cloak Users:
+------------
+
+http://freenode.net/faq.shtml#cloaks
+
+Logging:
+--------
+
+/set autolog = "yes"
+/set autolog_path = "~/Logs/irc/$tag_$0.%Y-%m-%d.log"
+/set autolog_level = "MSGS ACTIONS KICKS PUBLIC"
+
+Scripts:
+--------
+
+% mkdir ~/.irssi/scripts ; cd ~/.irssi/scripts ; wget http://www.irssi.org/scripts/scripts/scriptassist.pl
+/script load scriptassist.pl
+/scriptassist install chanact
+/script load chanact
+[ /statusbar chanact add ]
+[ /statusbar window remove chanact ]
+/statusbar chanact add chanact -after act
+
+/script unload script.pl
+
+http://ben.reser.org/irssi/format_identify.pl
+http://wouter.coekaerts.be/irssi/scripts/format_identify.pl
+/script load format_identify
+/quote capab identify-msg
+=> not identified users are displayed as "user?"
+
+Nicklist (works inside GNU screen or via fifo):
+-----------------------------------------------
+
+/scriptassist install nicklist
+/script load nicklist
+/nicklist screen
+
+Keybindings:
+------------
+
+/bind meta-y /window last   => toggle between last used windows
+
+Ressources:
+-----------
+
+/usr/share/doc/irssi
+http://www.irssi.org/documentation
+http://de.wikibooks.org/wiki/Irssi
+
+# EOF

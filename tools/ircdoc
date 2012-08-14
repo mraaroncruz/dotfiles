@@ -1,0 +1,4 @@
+#!/bin/bash
+# IRC Cheatsheet found here http://michael-prokop.at/stg/irc_workshop.txt
+set -e
+cat ~/.dotfiles/resources/irc_workshop.txt
