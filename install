@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+git submodule init
+git submodule update
+ln -nfs ~/.dotfiles/.zshrc ~/.zshrc
+ln -nfs ~/.dotfiles/.zshenv ~/.zshenv
+ln -nfs ~/.dotfiles/.vimrc ~/.vimrc
+ln -nfs ~/.dotfiles/.vim/ ~/.vim
+ln -nfs ~/.dotfiles/.gemrc ~/.gemrc
+ln -nfs ~/.dotfiles/.gitconf ~/.gitconf
+ln -nfs ~/.dotfiles/.tmux.conf ~/.tmux.conf
+
+git clone git://github.com/pferdefleisch/oh-my-zsh.git ~/.oh-my-zsh
+cd ~/.oh-my-zsh
+git checkout me
+
+source ~/.zshrc
