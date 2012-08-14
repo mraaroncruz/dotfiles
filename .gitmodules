@@ -37,9 +37,6 @@
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
-[submodule ".vim/bundle/AutoClose"]
-	path = .vim/bundle/AutoClose
-	url = https://github.com/vim-scripts/AutoClose.git
 [submodule ".vim/bundle/zencoding-vim.git"]
 	path = .vim/bundle/zencoding-vim.git
 	url = https://github.com/mattn/zencoding-vim.git
@@ -52,3 +49,12 @@
 [submodule ".vim/bundle/mru.vim"]
 	path = .vim/bundle/mru.vim
 	url = git://github.com/vim-scripts/mru.vim.git
+[submodule ".vim/bundle/VimClojure"]
+	path = .vim/bundle/VimClojure
+	url = git://github.com/vim-scripts/VimClojure.git
+[submodule ".vim/bundle/tabular"]
+	path = .vim/bundle/tabular
+	url = git://github.com/godlygeek/tabular.git
+[submodule ".vim/bundle/delimitMate"]
+	path = .vim/bundle/delimitMate
+	url = git://github.com/Raimondi/delimitMate.git
