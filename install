@@ -9,6 +9,7 @@ ln -nfs ~/.dotfiles/.vim/ ~/.vim
 ln -nfs ~/.dotfiles/.gemrc ~/.gemrc
 ln -nfs ~/.dotfiles/.gitconf ~/.gitconf
 ln -nfs ~/.dotfiles/.tmux.conf ~/.tmux.conf
+touch $HOME/.z
 
 git clone git://github.com/pferdefleisch/oh-my-zsh.git ~/.oh-my-zsh
 cd ~/.oh-my-zsh
