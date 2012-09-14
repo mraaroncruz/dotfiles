@@ -31,11 +31,12 @@
     m = merge
     mm = merge --no-ff
     msg = commit --allow-empty -m
-    p = cherry-pick -s
+    p = push
     pick = cherry-pick
+    picks = cherry-pick -s
+    picke = cherry-pick -e
     prune-remotes = "!for remote in `git remote`; do git remote prune $remote; done"
-    pu = push
-    puu = push -u origin master
+    pu = push -u origin master
     r = remote
     ra = !git log --graph --abbrev-commit --date=relative -20 --all --pretty='format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'
     rb = rebase
