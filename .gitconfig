@@ -1,5 +1,5 @@
 [user]
-	name = Aaron Cruz
+    name = Aaron Cruz
     email = aaron@aaroncruz.com
 
 [alias]
@@ -34,6 +34,8 @@
     p = cherry-pick -s
     pick = cherry-pick
     prune-remotes = "!for remote in `git remote`; do git remote prune $remote; done"
+    pu = push
+    puu = push -u origin master
     r = remote
     ra = !git log --graph --abbrev-commit --date=relative -20 --all --pretty='format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'
     rb = rebase
@@ -141,4 +143,4 @@
   textconv = unzip -c -a
 
 [github]
-    user = pferdefleisch 
+    user = pferdefleisch
