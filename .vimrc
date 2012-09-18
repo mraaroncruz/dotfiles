@@ -14,6 +14,9 @@ set guioptions-=r  "remove right-hand scroll bar
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+" Set irregular syntax highlighting
+au BufRead,BufNewFile *.hamlc setfiletype haml
+
 " delimitmate no delay on <C-[> https://github.com/Raimondi/delimitMate/issues/87
 let delimitMate_no_esc_mapping = 1
 
