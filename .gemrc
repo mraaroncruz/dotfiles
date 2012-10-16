@@ -1,7 +1,6 @@
 --- 
 :verbose: true
 :update_sources: true
-gem: --no-rdoc --no-ri
 :sources: 
 - http://rubygems.org/
 - http://gems.github.com/
