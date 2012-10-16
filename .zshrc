@@ -34,7 +34,7 @@ ZSH_THEME="terminalparty"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(osx bundler brew rails3 heroku pow sprunge pferdefleisch)
-plugins=(git bundler pferdefleisch)
+plugins=(git pferdefleisch)
 
 source $ZSH/oh-my-zsh.sh
 unsetopt correct_all
