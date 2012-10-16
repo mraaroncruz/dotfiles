@@ -1,5 +1,31 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pathogen
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use pathogen (http://www.vim.org/scripts/script.php?script_id=2332) for
+" easier bundle management
+call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Theme/Colors
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set term=xterm-256color
 set t_Co=256
+let g:solarized_termcolors=256
+
+if has('gui_running')
+  set background=dark
+else
+  set background=light
+endif
+syntax on
+colorscheme solarized
+set guifont=Mensch:h13
+set antialias
+set guioptions-=L
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 set textwidth=0
 set wrapmargin=0
 set complete=.,b,u,]
@@ -33,11 +59,6 @@ nmap gb a_<Esc>r
 
 " Pressing return clears highlighted search
 nnoremap <CR> :nohlsearch<CR>/<BS>
-
-" Use pathogen (http://www.vim.org/scripts/script.php?script_id=2332) for
-" easier bundle management
-call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
 
 " Make , the personal leader key
 let mapleader = ","
@@ -198,19 +219,6 @@ vnoremap X "_X
 " (by jumping to back start of previously changed text)
 noremap p p`[
 noremap P P`[
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Theme/Colors
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set background=light         " we are using a dark background
-set background=dark
-syntax on                    " syntax highlighting on
-
-colorscheme solarized
-" colorscheme twilight
-set guifont=Mensch:h13
-set antialias
-set guioptions-=L
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files/Backups
