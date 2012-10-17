@@ -41,6 +41,7 @@ unsetopt correct_all
 
 # Customize to your needs...
 export PATH=$HOME/.dotfiles/tools:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+export EDITOR=mvim
 
 if [ -d "$HOME/.rbenv" ]; then
   export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH
