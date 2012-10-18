@@ -12,6 +12,7 @@ call pathogen#runtime_append_all_bundles()
 set term=xterm-256color
 set t_Co=256
 let g:solarized_termcolors=256
+so ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
 
 if has('gui_running')
   set background=dark
