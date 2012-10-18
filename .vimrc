@@ -11,6 +11,10 @@ call pathogen#runtime_append_all_bundles()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set term=xterm-256color
 set t_Co=256
+
+so ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
+
+set background=dark
 let g:solarized_termcolors=256
 so ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
 
@@ -19,25 +23,25 @@ if has('gui_running')
 else
   set background=light
 endif
+
 syntax on
 colorscheme solarized
 set guifont=Mensch:h13
 set antialias
-set guioptions-=L
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 set textwidth=0
 set wrapmargin=0
 set complete=.,b,u,]
 map ,z :colorscheme grb256<cr>:set background=dark<cr>
 " let g:netrw_liststyle=3 " Use tree-mode as default view
-let g:netrw_browse_split=4 " Open file in previous buffer
-let g:netrw_preview=1 " preview window shown in a vertically split
+" let g:netrw_browse_split=4 " Open file in previous buffer
+" let g:netrw_preview=1 " preview window shown in a vertically split
 " Use Vim settings, rather then Vi settings (much better!).
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
@@ -412,3 +416,26 @@ if has("mac") || has("macunix")
 endif
 
 nmap <leader>x :MRU<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vimux
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run the current file with rspec
+map <Leader>rr :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%"))<CR>
+" Run command without sending sending a return
+map <Leader>rq :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%"), 0)<CR>
+" Run the current file with spinach
+map <Leader>rs :call VimuxRunCommand("clear; bundle exec spinach " . bufname("%"))<CR>
+" Prompt for a command to run map"
+map <Leader>vp :VimuxPromptCommand<CR>
+" Run last command executed by VimuxRunCommand
+map <Leader>vl :VimuxRunLastCommand<CR>"
+" Inspect runner pane map
+map <Leader>vi :VimuxInspectRunner<CR>"
+" Close vim tmux runner opened by VimuxRunCommand
+map <Leader>vq :VimuxCloseRunner<CR>"
+" Close all other tmux panes in current window
+map <Leader>vx :VimuxClosePanes<CR>"
+" Interrupt any command running in the runner pane map
+map <Leader>vs :VimuxInterruptRunner<CR>"
+
