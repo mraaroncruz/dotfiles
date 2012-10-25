@@ -9,19 +9,15 @@ call pathogen#runtime_append_all_bundles()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set term=xterm-256color
+set term=screen-256color
 set t_Co=256
 
 so ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
 
 set background=dark
-let g:solarized_termcolors=256
+let g:solarized_termcolors=16
 
-if has('gui_running')
-  set background=dark
-else
-  set background=light
-endif
+set background=dark
 
 syntax on
 colorscheme solarized
