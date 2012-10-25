@@ -144,8 +144,6 @@ function model {
 }
 
 # ACTUAL CUSTOMIZATION OH NOES!
-#gd() { git diff $* | view -; }
-#gdc() { gd --cached $*; }
 bindkey "^[[3~" delete-char
 
 function routes() {
