@@ -1,21 +1,28 @@
-#!/bin/bash
+#!/bin/zsh
 set -e
-
+#######################################
 # VIM
+#######################################
 git submodule init
 git submodule update
 
+#######################################
 # Prezto
+#######################################
+prezto_dir=$HOME/.zprezto
+if [ -d $prezto_dir ]; then
+  rm -rf $prezto_dir
+fi
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
 setopt EXTENDED_GLOB
 
 for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-    ln -nfs "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-  done
+  ln -nfs "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
 done
-
+#######################################
 # DOTFILES
+#######################################
 ln -nfs ~/.dotfiles/.zshrc ~/.zshrc
 ln -nfs ~/.dotfiles/.zshenv ~/.zshenv
 ln -nfs ~/.dotfiles/.vimrc ~/.vimrc
@@ -24,6 +31,7 @@ ln -nfs ~/.dotfiles/.gemrc ~/.gemrc
 ln -nfs ~/.dotfiles/.gitconf ~/.gitconf
 ln -nfs ~/.dotfiles/.tmux.conf ~/.tmux.conf
 touch $HOME/.z
-
+#######################################
 # Let's GO!
+#######################################
 source $HOME/.zshrc
