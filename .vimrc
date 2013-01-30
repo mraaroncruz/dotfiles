@@ -9,20 +9,14 @@ call pathogen#runtime_append_all_bundles()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set term=xterm-256color
-set t_Co=256
-let g:solarized_termcolors=256
-so ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
+"set term=screen-256color
+"set t_Co=256
+
 set background=dark
 
-if has('gui_running')
-  set background=dark
-else
-  set background=light
-endif
-
 syntax on
-colorscheme solarized
+" colorscheme maroloccio3
+colorscheme zenburn
 set guifont=Mensch:h13
 set antialias
 
@@ -423,7 +417,12 @@ map <Leader>rr :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%"))
 map <Leader>rq :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%"), 0)<CR>
 " Run the current file with spinach
 map <Leader>rs :call VimuxRunCommand("clear; bundle exec spinach " . bufname("%"))<CR>
-" Prompt for a command to run map"
+" Close all other tmux panes in current window
+map <Leader>rx :VimuxClosePanes<CR>"
+" Interrupt any command running in the runner pane map
+map <Leader>rs :VimuxInterruptRunner<CR>"
+
+" Prompt for a command to run map
 map <Leader>vp :VimuxPromptCommand<CR>
 " Run last command executed by VimuxRunCommand
 map <Leader>vl :VimuxRunLastCommand<CR>"
@@ -431,8 +430,5 @@ map <Leader>vl :VimuxRunLastCommand<CR>"
 map <Leader>vi :VimuxInspectRunner<CR>"
 " Close vim tmux runner opened by VimuxRunCommand
 map <Leader>vq :VimuxCloseRunner<CR>"
-" Close all other tmux panes in current window
-map <Leader>vx :VimuxClosePanes<CR>"
-" Interrupt any command running in the runner pane map
-map <Leader>vs :VimuxInterruptRunner<CR>"
-
+" If text is selected, save it in the v buffer and send that buffer it to tmux
+vmap <LocalLeader>vs "vy :call VimuxRunCommand(@v . "\n", 0)<CR>"
