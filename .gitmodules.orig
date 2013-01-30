@@ -64,9 +64,12 @@
 [submodule ".vim/bundle/vimux"]
 	path = .vim/bundle/vimux
 	url = git://github.com/benmills/vimux.git
+<<<<<<< HEAD
+=======
 [submodule ".vim/bundle/vim-scala"]
 	path = .vim/bundle/vim-scala
 	url = git://github.com/derekwyatt/vim-scala.git
 [submodule ".vim/bundle/vim-slim"]
 	path = .vim/bundle/vim-slim
 	url = git://github.com/slim-template/vim-slim.git
+>>>>>>> e77f643... Added new vim-slim repo. Thanks for deleting your repo bro
