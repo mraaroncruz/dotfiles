@@ -3,6 +3,14 @@ unsetopt correct_all
 # Customize to your needs...
 export PATH=$HOME/.dotfiles/tools:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
+# Android SDK
+export PATH=/usr/local/android/sdk/platform-tools:/usr/local/android/sdk/tools:$PATH
+
+if [ -d "$HOME/.rbenv" ]; then
+  export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH
+  eval "$(rbenv init -)"
+fi
+
 #
 # Executes commands at the start of an interactive session.
 #
@@ -92,6 +100,7 @@ alias rdbm="bundle exec rake db:migrate db:test:prepare"
 alias rdbr="bundle exec rake db:rollback"
 
 alias uni="bundle exec unicorn -p 3000"
+alias pm="bundle exec puma -p 3000"
 
 alias rr='rbenv rehash'
 
