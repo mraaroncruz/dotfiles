@@ -432,3 +432,9 @@ map <Leader>vi :VimuxInspectRunner<CR>"
 map <Leader>vq :VimuxCloseRunner<CR>"
 " If text is selected, save it in the v buffer and send that buffer it to tmux
 vmap <LocalLeader>vs "vy :call VimuxRunCommand(@v . "\n", 0)<CR>"
+
+"""""""""""""""""""""""""
+" Rails "
+"""""""""""""""""""""""""
+" change statement into a let
+nmap <Leader>vv I:^[ves)ilet^[f=r{A }^[dd?desc<CR>p<< 
