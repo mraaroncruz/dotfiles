@@ -67,16 +67,17 @@ map ,, <C-^>
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-imap jj <C-[>
+" imap jj <C-[>
+
 " command t make escape work
 let g:CommandTCancelMap=['<ESC>']
 " start in views or models
-map <leader>v :CommandT app/views/<cr>
-map <leader>m :CommandT app/models/<cr>
-map <leader>t :CtrlP<CR>
+map <Leader>v :CommandT app/views/<cr>
+map <Leader>m :CommandT app/models/<cr>
+map <Leader>t :CtrlP<CR>
 " "map <leader>t :CommandTFlush<cr>:CommandT<cr>
-" Make ' more useful, swap it with `
 
+" Make ' more useful, swap it with `
 nnoremap ' `
 nnoremap ` '
 
@@ -152,8 +153,11 @@ set scrolloff=3               " Start scrolling 3 lines before the border
 
 set autoread                  " Automatically reread files that have been changed externally
 
-"set relativenumber            " show how far away each line is from the current one
+" set relativenumber            " show how far away each line is from the current one
 " set undofile                  " save undo information
+
+" Show buffer list and choose one
+" nnoremap <C-e> :buffers<CR>:b<Space>
 
 " Make ^e and ^y scroll 3 lines instead of 1
 nnoremap <C-e> 3<C-e>
@@ -174,8 +178,9 @@ nnoremap <tab> %
 vnoremap <tab> %
 
 " Make ';' an alias for ':'
-"nnoremap : ;
 nnoremap ; :
+" this is breaking the ctrl-p and nerdtree for some reason
+" nnoremap : ;
 
 " Useful trick when I've forgotten to `sudo' before editing a file:
 cmap w!! w !sudo tee % >/dev/null
@@ -204,14 +209,13 @@ map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 " Opens a tab edit command with the path of the currently edited file filled in
 " Normal mode: <Leader>t
 "map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
 " Shift-tab to insert a hard tab
 imap <silent> <S-tab> <C-v><tab>
 
 " allow deleting selection without updating the clipboard (yank buffer)
 vnoremap x "_x
 vnoremap X "_X
-
-:nnoremap <C-e> :buffers<CR>:b<Space>
 
 " don't move the cursor after pasting
 " (by jumping to back start of previously changed text)
@@ -251,12 +255,14 @@ match WhitespaceEOL /\s\+$/
 "    Enable folding, but by default make it act like folding is off, because folding is
 "    annoying in anything but a few rare cases
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set foldenable               " Turn on folding
-"set foldmethod=indent       " Make folding indent sensitive
-set foldmethod=marker        " 
-set foldlevel=79            " Don't autofold anything (but I can still fold manually)
+set nofoldenable            " Turn on folding
+set foldmethod=indent       " Make folding indent sensitive
+set foldnestmax=10
+"set foldmethod=marker        " 
+set foldlevel=1              " Don't autofold anything (but I can still fold manually)
 "set foldopen-=search        " don't open folds when you search into them
 "set foldopen-=undo          " don't open folds when you undo stuff
+nnoremap <Space> za
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File Encoding
@@ -324,11 +330,11 @@ map <leader>c :NERDTreeFind<cr>
 let NERDTreeShowHidden=1
 map <C-n> o<C-[>
 
-:au BufNewFile,BufRead *.term,Rakefile,Gemfile,Procfile,Vagrantfile,*.rake,*.ru setlocal ft=ruby
+au BufNewFile,BufRead *.term,Rakefile,Gemfile,Procfile,Vagrantfile,*.rake,*.ru setlocal ft=ruby
 
 " View schema or routes file
-:map <leader>vs :e db/schema.rb<cr>
-:map <leader>vr :e config/routes.rb<cr>
+" nmap <leader>vs :e db/schema.rb<cr>
+" nmap <leader>vr :e config/routes.rb<cr>
 "nmap <cr> :nohl<cr>
 
 " source: http://vim.wikia.com/wiki/VimTip102
@@ -408,6 +414,7 @@ if has("mac") || has("macunix")
   vmap <D-k> <M-k>
 endif
 
+" MRU
 nmap <leader>x :MRU<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -419,12 +426,7 @@ map <Leader>rr :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%"))
 map <Leader>rq :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%"), 0)<CR>
 " Run the current file with spinach
 map <Leader>rs :call VimuxRunCommand("clear; bundle exec spinach " . bufname("%"))<CR>
-" Close all other tmux panes in current window
-map <Leader>rx :VimuxClosePanes<CR>"
-" Interrupt any command running in the runner pane map
-map <Leader>rs :VimuxInterruptRunner<CR>"
-
-" Prompt for a command to run map
+" Prompt for a command to run map"
 map <Leader>vp :VimuxPromptCommand<CR>
 " Run last command executed by VimuxRunCommand
 map <Leader>vl :VimuxRunLastCommand<CR>"
@@ -432,11 +434,7 @@ map <Leader>vl :VimuxRunLastCommand<CR>"
 map <Leader>vi :VimuxInspectRunner<CR>"
 " Close vim tmux runner opened by VimuxRunCommand
 map <Leader>vq :VimuxCloseRunner<CR>"
-" If text is selected, save it in the v buffer and send that buffer it to tmux
-vmap <LocalLeader>vs "vy :call VimuxRunCommand(@v . "\n", 0)<CR>"
-
-"""""""""""""""""""""""""
-" Rails "
-"""""""""""""""""""""""""
-" change statement into a let
-nmap <Leader>vv I:^[ves)ilet^[f=r{A }^[dd?desc<CR>p<< 
+" Close all other tmux panes in current window
+map <Leader>vx :VimuxClosePanes<CR>"
+" Interrupt any command running in the runner pane map
+map <Leader>vs :VimuxInterruptRunner<CR>"
