@@ -69,4 +69,4 @@
 	url = git://github.com/derekwyatt/vim-scala.git
 [submodule ".vim/bundle/vim-slim"]
 	path = .vim/bundle/vim-slim
-	url = git://github.com/slim-template/vim-slim.git
+	url = git://github.com/DAddYE/vim-slim.git
