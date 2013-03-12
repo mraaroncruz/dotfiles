@@ -25,6 +25,26 @@ fi
 
 # Customize to your needs...
 
+# Edit this file
+alias zrc="vim ~/.zshrc && source ~/.zshrc"
+
+# GIT
+alias gp="git push"
+alias gpu="git push -u origin/master"
+alias gf="git fetch"
+alias gm="git merge origin/master"
+alias gco="git checkout"
+alias gst="git status"
+alias gsta="git stash"
+alias gstp="git stash pop"
+alias gcob="git checkout -b"
+alias gaa="git add --all"
+alias gcm="git commit -m"
+alias gc="git commit"
+alias gca="git commit --ammend"
+alias gl="git log"
+alias glg="git log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+
 alias spk="bundle exec spork cucumber & bundle exec spork"
 alias iphone="open /Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
 alias sstr="sudo apachectl start"
