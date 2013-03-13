@@ -1,0 +1,64 @@
+snippet eq
+	{{ ${1} }}
+
+snippet e
+	{% ${1} %}
+
+snippet if
+	{% if ${1} %}
+		${2}
+	{% endif %}
+
+snippet ifel
+	{% if ${1} %}
+		${2}
+	{% else %}
+		${3}
+	{% endif %}
+
+snippet unless
+	{% unless ${1} %}
+		${2}
+	{% endunless %}
+
+snippet for
+	{% for ${1} in ${2} %}
+		${3}
+	{% endfor %}
+
+snippet ass
+	{% assign ${1} = ${2} %}
+
+snippet cap
+	{% capture ${1} %}
+		${2}
+	{% endcapture %}
+
+snippet case
+	{% case ${1} %}
+	{% when ${2} %}
+		${3}
+	{% when ${4} %}
+		${5}
+	{% else %}
+		${6}
+	{% endcase %}
+
+snippet include
+	{% include ${1} %}${2}{% endinclude %}
+
+snippet #
+	{% comment ${1} %}
+		${2}
+	{% endcomment %}
+
+snippet cycle
+	{% cycle ${1}, ${2}, ${3} %}
+
+snippet raw
+	{% raw ${1} %}
+		${2}
+	{% endraw %}
+
+snippet rep
+	replace: ${1}, ${2}
