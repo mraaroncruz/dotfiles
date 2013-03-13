@@ -39,11 +39,14 @@ alias gsta="git stash"
 alias gstp="git stash pop"
 alias gcob="git checkout -b"
 alias gaa="git add --all"
-alias gcm="git commit -m"
 alias gc="git commit"
 alias gca="git commit --ammend"
 alias gl="git log"
 alias glg="git log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+
+function gccm () {
+  git commit -m "$*";
+}
 
 alias spk="bundle exec spork cucumber & bundle exec spork"
 alias iphone="open /Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
