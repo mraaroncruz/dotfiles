@@ -28,6 +28,7 @@ fi
 # Edit this file
 alias zrc="vim ~/.zshrc && source ~/.zshrc"
 
+alias smalltalk="/usr/local/bin/gst"
 # GIT
 alias gp="git push"
 alias gpu="git push -u origin/master"
