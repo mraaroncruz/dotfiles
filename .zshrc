@@ -49,7 +49,7 @@ function gccm () {
 }
 
 alias spk="bundle exec spork cucumber & bundle exec spork"
-alias iphone="open /Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
+alias iphone="open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
 alias sstr="sudo apachectl start"
 alias sstp="sudo apachectl stop"
 alias srt="sudo apachectl restart"
@@ -75,7 +75,6 @@ alias prodlog="tail -n 300 -f log/production.log"
 alias devlog="tail -n 300 -f log/development.log"
 alias staglog="tail -n 300 -f log/staging.log"
 
-alias t="terminitor"
 alias phpdoc="thor php:open"
 
 alias powstop="curl get.pow.cx/uninstall.sh | sh"
@@ -133,6 +132,9 @@ alias clean="bundle exec rake assets:clean"
 alias sr="screen -r"
 
 alias t="TERM=screen-256color-bce tmux"
+function tcwd () {
+  tmux set-option default-path $PWD
+}
 
 alias start='consular start'
 alias edit='consular edit'
