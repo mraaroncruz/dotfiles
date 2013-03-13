@@ -192,15 +192,15 @@ au FocusLost * silent! :wa
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Tab mappings.
-map <leader>it :tabnew<cr>
-map <leader>ie :tabedit
-map <leader>ic :tabclose<cr>
-map <leader>io :tabonly<cr>
-map <leader>in :tabnext<cr>
-map <leader>ip :tabprevious<cr>
-map <leader>if :tabfirst<cr>
-map <leader>il :tablast<cr>
-map <leader>im :tabmove
+map <leader>tt :tabnew<cr>
+map <leader>te :tabedit
+map <leader>tc :tabclose<cr>
+map <leader>to :tabonly<cr>
+map <leader>tn :tabnext<cr>
+map <leader>tp :tabprevious<cr>
+map <leader>tf :tabfirst<cr>
+map <leader>tl :tablast<cr>
+map <leader>tm :tabmove
 
 " Opens an edit command with the path of the currently edited file filled in
 " Normal mode: <Leader>e
