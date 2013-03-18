@@ -24,6 +24,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+export EDITOR=vim
+export VISUAL=vim
 
 # Edit this file
 alias zrc="vim ~/.zshrc && source ~/.zshrc"
