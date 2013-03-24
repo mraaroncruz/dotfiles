@@ -73,6 +73,28 @@ alias vssh='vagrant ssh'
 # Capistrano
 alias deploy='cap deploy'
 
+# Projects
+function proj () {
+  current=~/.config/consular/current
+  if [[ -n $1 ]]; then
+    echo "Starting $1..."
+    consular start $1
+    return
+  fi
+  if [[ -f "$current" ]]; then
+    project=`cat $current`
+    echo "Starting $project..."
+    consular start $project
+    return
+  fi
+}
+
+function setproj () {
+  current=~/.config/consular/current
+  if [ -f "$current" ]; then rm -f $current; fi
+  echo $1 > $current
+}
+
 # Ruby Apps
 alias prodlog="tail -n 300 -f log/production.log"
 alias devlog="tail -n 300 -f log/development.log"
@@ -111,8 +133,7 @@ alias be="bundle exec"
 alias bo="bundle open"
 
 alias migrate="bundle exec rake db:migrate"
-alias dpl="bundle exec rake deploy"
-alias easy_deploy="bundle exec rake vlad:easy_deploy"
+alias dpl="bundle exec cap deploy"
 
 alias nsta="sudo nginx"
 alias nsto="sudo nginx -s stop"
