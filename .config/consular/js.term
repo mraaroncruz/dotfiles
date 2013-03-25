@@ -1,0 +1,12 @@
+cwd = "cd /Users/aaron/Projects/jobschneider/js_neu"
+prj = "jobschneider"
+
+tab do
+  cmd = <<-EOS
+    #{cwd}
+    tmux new-session -d -s #{prj}
+    tmux send-keys -t #{prj}:1 'tmux splitw && vim .' C-m
+    tmux -2 attach-session -t #{prj}
+  EOS
+  run cmd
+end

@@ -38,6 +38,9 @@ set guioptions-=L
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+" Editable crontab
+au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+
 " Set irregular syntax highlighting
 au BufRead,BufNewFile *.hamlc setfiletype haml
 
@@ -443,3 +446,7 @@ map <Leader>vq :VimuxCloseRunner<CR>"
 map <Leader>vx :VimuxClosePanes<CR>"
 " Interrupt any command running in the runner pane map
 map <Leader>vs :VimuxInterruptRunner<CR>"
+
+
+" Quickly display a markdown preview of the current buffer
+map <leader>m :%w ! markdown_doctor \| bcat<CR><CR>
