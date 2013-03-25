@@ -61,6 +61,7 @@ alias nstop="sudo nginx -s stop"
 alias nreload="sudo nginx -s reload"
 alias nstat="sudo lsof -i -P"
 
+
 # Vagrant
 alias vu='vagrant up'
 alias vun='vagrant up --no-provision'
@@ -71,7 +72,29 @@ alias vs='vagrant suspend'
 alias vssh='vagrant ssh'
 
 # Capistrano
-alias deploy='cap deploy'
+alias dp='cap deploy'
+
+# Projects
+function proj () {
+  current=~/.config/consular/current
+  if [[ -n $1 ]]; then
+    echo "Starting $1..."
+    consular start $1
+    return
+  fi
+  if [[ -f "$current" ]]; then
+    project=`cat $current`
+    echo "Starting $project..."
+    consular start $project
+    return
+  fi
+}
+
+function setproj () {
+  current=~/.config/consular/current
+  if [ -f "$current" ]; then rm -f $current; fi
+  echo $1 > $current
+}
 
 # Projects
 function proj () {
