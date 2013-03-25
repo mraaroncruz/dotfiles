@@ -58,6 +58,7 @@ alias nstop="sudo nginx -s stop"
 alias nreload="sudo nginx -s reload"
 alias nstat="sudo lsof -i -P"
 
+
 # Vagrant
 alias vu='vagrant up'
 alias vun='vagrant up --no-provision'
@@ -68,7 +69,7 @@ alias vs='vagrant suspend'
 alias vssh='vagrant ssh'
 
 # Capistrano
-alias deploy='cap deploy'
+alias dp='cap deploy'
 
 # Ruby Apps
 alias prodlog="tail -n 300 -f log/production.log"

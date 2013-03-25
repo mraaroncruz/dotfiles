@@ -51,6 +51,9 @@ cmap w!! %!sudo tee > /dev/null %
 nnoremap j gj
 nnoremap k gk
 
+" open .vimrc
+nmap gr :sp ~/.vimrc<cr>
+
 " insert a single character
 nmap gt i_<Esc>r
 nmap gb a_<Esc>r
@@ -72,10 +75,12 @@ set backspace=indent,eol,start
 " command t make escape work
 let g:CommandTCancelMap=['<ESC>']
 " start in views or models
-map <Leader>v :CommandT app/views/<cr>
-map <Leader>m :CommandT app/models/<cr>
-map <Leader>t :CtrlP<CR>
+" map <Leader>v :CommandT app/views/<cr>
+" map <Leader>m :CommandT app/models/<cr>
+" map <Leader>t :CtrlP<CR>
 " "map <leader>t :CommandTFlush<cr>:CommandT<cr>
+let g:ctrlp_clear_cache_on_exit = 1
+map <C-l> :CtrlPClearCache<CR>
 
 " Make ' more useful, swap it with `
 nnoremap ' `
