@@ -24,10 +24,13 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+export EDITOR=vim
+export VISUAL=vim
 
 # Edit this file
 alias zrc="vim ~/.zshrc && source ~/.zshrc"
 
+alias smalltalk="/usr/local/bin/gst"
 # GIT
 alias gp="git push"
 alias gpu="git push -u origin/master"
@@ -70,6 +73,28 @@ alias vssh='vagrant ssh'
 
 # Capistrano
 alias dp='cap deploy'
+
+# Projects
+function proj () {
+  current=~/.config/consular/current
+  if [[ -n $1 ]]; then
+    echo "Starting $1..."
+    consular start $1
+    return
+  fi
+  if [[ -f "$current" ]]; then
+    project=`cat $current`
+    echo "Starting $project..."
+    consular start $project
+    return
+  fi
+}
+
+function setproj () {
+  current=~/.config/consular/current
+  if [ -f "$current" ]; then rm -f $current; fi
+  echo $1 > $current
+}
 
 # Projects
 function proj () {
