@@ -10,6 +10,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+export EDITOR=vim
+export VISUAL=vim
 
 unsetopt correct_all
 
@@ -53,21 +55,7 @@ function gccm () {
   git commit -m "$*";
 }
 
-<<<<<<< HEAD
-alias spk="bundle exec spork cucumber & bundle exec spork"
-alias iphone="open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
-alias sstr="sudo apachectl start"
-alias sstp="sudo apachectl stop"
-alias srt="sudo apachectl restart"
-alias nstart="sudo nginx"
-alias nstop="sudo nginx -s stop"
-alias nreload="sudo nginx -s reload"
-alias nstat="sudo lsof -i -P"
-
-# Vagrant
-=======
 # VAGRANT
->>>>>>> 4251228... Cleaned up .zshrc
 alias vu='vagrant up'
 alias vun='vagrant up --no-provision'
 alias vr='vagrant reload'
@@ -76,10 +64,6 @@ alias vh='vagrant halt'
 alias vs='vagrant suspend'
 alias vssh='vagrant ssh'
 
-<<<<<<< HEAD
-# Capistrano
-alias deploy='cap deploy'
-=======
 # Projects
 function proj () {
   current=~/.config/consular/current
@@ -103,7 +87,28 @@ function setproj () {
 }
 alias start='consular start'
 alias edit='consular edit'
->>>>>>> 4251228... Cleaned up .zshrc
+
+# Projects
+function proj () {
+  current=~/.config/consular/current
+  if [[ -n $1 ]]; then
+    echo "Starting $1..."
+    consular start $1
+    return
+  fi
+  if [[ -f "$current" ]]; then
+    project=`cat $current`
+    echo "Starting $project..."
+    consular start $project
+    return
+  fi
+}
+
+function setproj () {
+  current=~/.config/consular/current
+  if [ -f "$current" ]; then rm -f $current; fi
+  echo $1 > $current
+}
 
 # Ruby Apps
 alias prodlog="tail -n 300 -f log/production.log"
@@ -184,15 +189,14 @@ alias iphone="open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSi
 alias i="identify"
 
 <<<<<<< HEAD
-alias migrate="bundle exec rake db:migrate"
-alias dpl="bundle exec rake deploy"
-alias easy_deploy="bundle exec rake vlad:easy_deploy"
-=======
 alias sstr="sudo apachectl start"
 alias sstp="sudo apachectl stop"
 alias srt="sudo apachectl restart"
 alias nstat="sudo lsof -i -P"
->>>>>>> 4251228... Cleaned up .zshrc
+=======
+alias migrate="bundle exec rake db:migrate"
+alias dpl="bundle exec cap deploy"
+>>>>>>> origin/master
 
 alias nsta="sudo nginx"
 alias nsto="sudo nginx -s stop"
