@@ -70,3 +70,21 @@
 [submodule ".vim/bundle/vim-toml"]
 	path = .vim/bundle/vim-toml
 	url = git://github.com/cespare/vim-toml.git
+[submodule ".vim/bundle/gist-vim"]
+	path = .vim/bundle/gist-vim
+	url = git://github.com/mattn/gist-vim.git
+[submodule ".vim/bundle/vim-multiple-cursors"]
+	path = .vim/bundle/vim-multiple-cursors
+	url = git://github.com/terryma/vim-multiple-cursors.git
+[submodule ".vim/bundle/vim-elixir"]
+	path = .vim/bundle/vim-elixir
+	url = git://github.com/elixir-lang/vim-elixir.git
+[submodule ".vim/bundle/vim-instant-markdown"]
+	path = .vim/bundle/vim-instant-markdown
+	url = git://github.com/suan/vim-instant-markdown.git
+[submodule ".vim/bundle/tagbar"]
+	path = .vim/bundle/tagbar
+	url = https://github.com/majutsushi/tagbar.git
+[submodule ".vim/bundle/vim-golang"]
+	path = .vim/bundle/vim-golang
+	url = https://github.com/jnwhiteh/vim-golang.git

@@ -9,18 +9,27 @@ call pathogen#runtime_append_all_bundles()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set term=screen-256color
-"set t_Co=256
+set term=screen-256color
+set t_Co=256
 
-set background=dark
+set background=light
+" set background=dark
 let g:solarized_termcolors=16
 so ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
 
 syntax on
 " colorscheme maroloccio3
-colorscheme zenburn
+" colorscheme zenburn
+colorscheme solarized
 set guifont=Mensch:h13
 set antialias
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Splits
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" split and be active in split instead of original
+set splitbelow
+set splitright
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set textwidth=0
@@ -95,7 +104,7 @@ set history=500               " keep 500 lines of command line history
 set ruler                     " show the cursor position all the time
 set showcmd                   " display incomplete commands
 set incsearch                 " do incremental searching
-set number                    " show line numbers
+" set number                    " show line numbers
 
 runtime macros/matchit.vim    " Enable extended % matching
 
@@ -156,6 +165,7 @@ nmap \o :set paste!<CR>:set paste?<CR>
 
 " Make trailing whitespace visible with ,s
 nmap <silent> <leader>s :set nolist!<CR>
+set nolist!
 
 set scrolloff=3               " Start scrolling 3 lines before the border
 
@@ -247,7 +257,7 @@ set fo=tcrqn                 " See Help (complex)
 set autoindent               " autoindent
 set nosmartindent            " smartindent
 set cindent                  " do c-style indenting
-"set tabstop=2               " tab spacing (settings below are just to unify it)
+set tabstop=4                " tab spacing (settings below are just to unify it)
 set softtabstop=2            " unify
 set shiftwidth=2             " unify
 set expandtab                " use spaces instead of tabs
@@ -270,7 +280,7 @@ set foldnestmax=10
 set foldlevel=1              " Don't autofold anything (but I can still fold manually)
 "set foldopen-=search        " don't open folds when you search into them
 "set foldopen-=undo          " don't open folds when you undo stuff
-nnoremap <Space> za
+" nnoremap <Space> za
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File Encoding
@@ -425,15 +435,27 @@ endif
 " MRU
 nmap <leader>x :MRU<CR>
 
+" Cmd-a
+if has("mac") || has("macunix")
+  nmap <D-a> ggVG
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" tagbar
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <F8> :TagbarToggle<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimux
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Run the current file with rspec
-map <Leader>rr :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%"))<CR>
+map <Leader>rr :call VimuxRunCommand("clear; spring rspec " . bufname("%"))<CR>
 " Run command without sending sending a return
-map <Leader>rq :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%"), 0)<CR>
+map <Leader>rn :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%"))<CR>
+" Run command without sending sending a return
+map <Leader>rq :call VimuxRunCommand("clear; spring rspec " . bufname("%"), 0)<CR>
 " Run the current file with spinach
-map <Leader>rs :call VimuxRunCommand("clear; bundle exec spinach " . bufname("%"))<CR>
+map <Leader>rs :call VimuxRunCommand("clear; spring spinach " . bufname("%"))<CR>
 " Prompt for a command to run map"
 map <Leader>vp :VimuxPromptCommand<CR>
 " Run last command executed by VimuxRunCommand
@@ -450,3 +472,9 @@ map <Leader>vs :VimuxInterruptRunner<CR>"
 
 " Quickly display a markdown preview of the current buffer
 map <leader>m :%w ! markdown_doctor \| bcat<CR><CR>
+
+" Tabularize
+if exists(":Tabularize")
+  map <Leader>a= :Tabularize /=<CR>
+  map <Leader>a: :Tabularize /:\zs<CR>
+endif

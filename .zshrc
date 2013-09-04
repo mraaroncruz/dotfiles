@@ -1,7 +1,27 @@
-unsetopt correct_all
+#unsetopt correct_all
+unsetopt correct
 
+#
+# Place this code to your .profile, .bashrc, .bash_profile or whatever
+#
+
+program_exists () {
+	type "$1" &> /dev/null ;
+}
+
+if program_exists go; then
+	function setupGOROOT()
+	{
+		local GOPATH=`which go`
+		local GODIR=`dirname $GOPATH`
+		local GOPATH_BREW_RELATIVE=`readlink $GOPATH`
+		local GOPATH_BREW=`dirname $GOPATH_BREW_RELATIVE`
+		export GOROOT=`cd $GODIR; cd $GOPATH_BREW/..; pwd`
+	}
+	setupGOROOT
+fi
 # Customize to your needs...
-export PATH=$HOME/.dotfiles/tools:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=$HOME/.dotfiles/tools:$HOME/bin:/usr/local/share/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 # Android SDK
 export PATH=/usr/local/android/sdk/platform-tools:/usr/local/android/sdk/tools:$PATH
@@ -30,7 +50,18 @@ export VISUAL=vim
 # Edit this file
 alias zrc="vim ~/.zshrc && source ~/.zshrc"
 
+# Edit vimrc
+alias vimrc="vim $HOME/.vimrc"
+
+# Fix gst issue
 alias smalltalk="/usr/local/bin/gst"
+
+# Handy folders
+alias code="cd $HOME/Code"
+alias repo="cd $HOME/Repo"
+alias hack="cd $HOME/Hack"
+alias dotfiles="cd $HOME/.dotfiles"
+
 # GIT
 alias gp="git push"
 alias gpu="git push -u origin/master"
@@ -50,6 +81,8 @@ alias glg="git log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Cre
 function gccm () {
   git commit -m "$*";
 }
+
+alias hpush="git push heroku master"
 
 alias spk="bundle exec spork cucumber & bundle exec spork"
 alias iphone="open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
@@ -154,9 +187,13 @@ alias bu="bundle update"
 alias bc="bundle check"
 alias be="bundle exec"
 alias bo="bundle open"
+alias grd="spring guard"
 
-alias migrate="bundle exec rake db:migrate"
-alias dpl="bundle exec cap deploy"
+alias bwin="bower install --save"
+alias bwit="bower init"
+
+alias migrate="rake db:migrate"
+alias dpl="cap deploy"
 
 alias nsta="sudo nginx"
 alias nsto="sudo nginx -s stop"
@@ -174,7 +211,7 @@ alias pm="bundle exec puma -p 3000"
 alias rr='rbenv rehash'
 
 alias cpl="bundle exec rake assets:precompile"
-alias clean="bundle exec rake assets:clean"
+alias clean="budle exec rake assets:clean"
 
 alias sr="screen -r"
 
@@ -189,7 +226,7 @@ alias pryr="pry -r ./config/environment -r rails/console/app -r rails/console/he
 alias fs="bundle exec foreman start"
 alias gemspeed='bundle exec ruby -e "$(curl -fsSL https://gist.github.com/raw/2588879/benchmark.rb)" | sort -n -k4'
 alias i="identify"
-
+alias srv="http-server -p 3001"
 # Handy Functions
 c() { cd ~/Projects/$1;  }
 
@@ -205,6 +242,11 @@ function precmd () {
 function ghsearch {
   open "https://github.com/search?q=$1&type=Everything&repo=&langOverride=&start_value=1"
 }
+function ww {
+  # $1 is command, $2 is interval
+  while true; do clear; date;echo;eval $1; sleep $2; done;
+}
+
 function geo {
   geocode $1 | grep L
 }
