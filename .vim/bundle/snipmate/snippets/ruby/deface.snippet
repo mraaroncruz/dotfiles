@@ -1,0 +1,6 @@
+# ${1:comment}
+Deface::Override.new(
+  :virtual_path  => "spree/${2:path}",
+  :${3:remove-or-replace} => "${4:css_attribute}",
+  :${5:text_partial_template}  => "${6:text-or-template}",
+  :name   => "${7:name}")

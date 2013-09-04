@@ -478,3 +478,8 @@ if exists(":Tabularize")
   map <Leader>a= :Tabularize /=<CR>
   map <Leader>a: :Tabularize /:\zs<CR>
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-airline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:airline#extensions#tabline#enabled = 1
