@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'awesome_print'
+require 'json'
+
+str = STDIN.read
+json = JSON.parse str
+ap json

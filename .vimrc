@@ -9,8 +9,8 @@ call pathogen#runtime_append_all_bundles()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set term=screen-256color
-"set t_Co=256
+set term=screen-256color
+set t_Co=256
 
 set background=dark
 let g:solarized_termcolors=16
@@ -18,7 +18,8 @@ so ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
 
 syntax on
 " colorscheme maroloccio3
-colorscheme zenburn
+" colorscheme zenburn
+colorscheme solarized
 set guifont=Mensch:h13
 set antialias
 
@@ -318,8 +319,6 @@ autocmd FileType ruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby let g:rubycomplete_rails = 1
 " ... and to include Classes in global completions
 autocmd FileType ruby let g:rubycomplete_classes_in_global = 1
-" Thorfile, Rakefile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,config.ru,Capfile,*.rake}    set ft=ruby
 
 " Syntax highlight shell scripts as per POSIX,
 " not the original Bourne shell which very few use
@@ -338,7 +337,9 @@ map <leader>c :NERDTreeFind<cr>
 let NERDTreeShowHidden=1
 map <C-n> o<C-[>
 
-au BufNewFile,BufRead *.term,Rakefile,Gemfile,Procfile,Vagrantfile,*.rake,*.ru setlocal ft=ruby
+" Thorfile, Rakefile and Gemfile are Ruby
+au BufNewFile,BufRead *.term,Rakefile,Guardfile,Gemfile,Procfile,Vagrantfile,*.rake,*.ru setlocal ft=ruby
+au BufRead,BufNewFile *.eco setlocal ft=html.eruby
 
 " View schema or routes file
 " nmap <leader>vs :e db/schema.rb<cr>
@@ -450,3 +451,8 @@ map <Leader>vs :VimuxInterruptRunner<CR>"
 
 " Quickly display a markdown preview of the current buffer
 map <leader>m :%w ! markdown_doctor \| bcat<CR><CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-airline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:airline#extensions#tabline#enabled = 1
