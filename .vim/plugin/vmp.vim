@@ -50,9 +50,72 @@ ruby << RUBY
       <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-      <link rel="stylesheet"
+      <!-- <link rel="stylesheet"
             href="#{stylesheet}">
-      </link>
+      </link> -->
+
+      <style type="text/css">
+        body div#container {
+          margin            : 0 auto;
+          max-width         : 920px;
+          background-color  : #fff;
+          font-size         : 14px;
+          line-height       : 1.6;
+          font-family       : Helvetica, sans-serif;
+          border            : 4px #EFEFEF solid;
+        }
+
+        #article {
+          border            : 1px #E0E0E0 solid;
+          padding           : 25px;
+        }
+
+        h1 { font-size: 34px; }
+        h2 { font-size: 24px; }
+        h3 { font-size: 20px; }
+        h4 { font-size: 16px; }
+
+        body div#container h2, body div#container h3, body div#content h4 {
+          padding-top  : 10px;
+        }
+
+        body div#container h2 {
+          border-bottom   : 1px solid #CCC;
+        }
+
+        body div#container pre {
+          padding          : 5px;
+          border-style     : solid;
+          border-width     : 1px;
+          border-color     : #E0E0E0;
+          background-color : #F8F8FF;
+        }
+
+        body div#container pre code {
+          padding          : 5px;
+          background-color : #F8F8FF;
+          border           : none;
+        }
+
+        body div#container code {
+          font-family      : courier, fixed;
+          display          : inline-block;
+          padding          : 0px 2px 0px 2px;
+          background-color : #F8F8FF;
+          border           : 1px #E0E0E0 solid;
+        }
+
+        body h4#title {
+          font-family : Helvetica, sans-serif;
+          display     : block;
+          margin      : 0 auto;
+          width       : 920px;
+        }
+
+        li {
+          margin-bottom: 7px;
+        }
+      </style>
 
       <title> #{name} </title>
       </head>

@@ -25,6 +25,9 @@
     f = fetch
     h = help
     irb = rebase --interactive
+    ksdiff = difftool -y -t Kaleidoscope
+    ksreview = "!sh -c 'SHA=${1:-HEAD}; BRANCH=${2:-master}; if [ $SHA == $BRANCH ] ; then SHA=HEAD; fi; git difftool -y -t Kaleidoscope $BRANCH...$SHA;' -"
+    ksshow = "!sh -c 'SHA=${1:-HEAD}; git difftool -y -t Kaleidoscope $SHA^..$SHA;' -"
     l = log --oneline --decorate
     lg = log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     ls-ignored = ls-files --exclude-standard --ignored --others

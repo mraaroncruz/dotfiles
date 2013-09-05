@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+####################################################################################################################
+# Use:
+# chmod +x prettyjson
+# gem install awesome_print
+# $> curl http://search.twitter.com/search.json?q=erlang&rpp=5&include_entities=true&result_type=mixed | ./prettyjson
+# or add the script somewhere in your path and forget the ./
+#####################################################################################################################
+require 'awesome_print'
+require 'json'
+
+str = STDIN.read
+json = JSON.parse str
+ap json

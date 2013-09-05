@@ -63,37 +63,13 @@
 	url = git://github.com/derekwyatt/vim-scala.git
 [submodule ".vim/bundle/vim-slim"]
 	path = .vim/bundle/vim-slim
-	url = https://github.com/slim-template/vim-slim.git
+	url = git://github.com/DAddYE/vim-slim.git
 [submodule ".vim/bundle/vim-liquid"]
 	path = .vim/bundle/vim-liquid
 	url = git://github.com/tpope/vim-liquid.git
+<<<<<<< HEAD
+=======
 [submodule ".vim/bundle/vim-toml"]
 	path = .vim/bundle/vim-toml
 	url = git://github.com/cespare/vim-toml.git
-[submodule ".vim/bundle/gist-vim"]
-	path = .vim/bundle/gist-vim
-	url = git://github.com/mattn/gist-vim.git
-[submodule ".vim/bundle/vim-multiple-cursors"]
-	path = .vim/bundle/vim-multiple-cursors
-	url = git://github.com/terryma/vim-multiple-cursors.git
-[submodule ".vim/bundle/vim-elixir"]
-	path = .vim/bundle/vim-elixir
-	url = git://github.com/elixir-lang/vim-elixir.git
-[submodule ".vim/bundle/vim-instant-markdown"]
-	path = .vim/bundle/vim-instant-markdown
-	url = git://github.com/suan/vim-instant-markdown.git
-[submodule ".vim/bundle/tagbar"]
-	path = .vim/bundle/tagbar
-	url = https://github.com/majutsushi/tagbar.git
-[submodule ".vim/bundle/vim-golang"]
-	path = .vim/bundle/vim-golang
-	url = https://github.com/jnwhiteh/vim-golang.git
-[submodule ".vim/bundle/syntastic"]
-	path = .vim/bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
-[submodule ".vim/bundle/vim-airline"]
-	path = .vim/bundle/vim-airline
-	url = https://github.com/bling/vim-airline.git
-[submodule ".vim/bundle/vim-surround"]
-	path = .vim/bundle/vim-surround
-	url = https://github.com/tpope/vim-surround.git
+>>>>>>> origin
