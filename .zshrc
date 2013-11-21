@@ -31,6 +31,12 @@ if [ -d "$HOME/.rbenv" ]; then
   eval "$(rbenv init -)"
 fi
 
+# Derp derp
+export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+
+# Rubygems cache proxy
+export GEM_SOURCE=http://yarp.dev
+
 #
 # Executes commands at the start of an interactive session.
 #
@@ -62,9 +68,19 @@ alias repo="cd $HOME/Repo"
 alias hack="cd $HOME/Hack"
 alias dotfiles="cd $HOME/.dotfiles"
 
+# PHONEGAP
+alias pg="phonegap"
+alias pgb="phonegap build"
+alias pgbi="phonegap build ios"
+alias pgba="phonegap build android"
+alias pgii="phonegap install ios"
+alias pgia="phonegap install android"
+alias pgri="phonegap run ios"
+alias pgra="phonegap run android"
+
 # GIT
 alias gp="git push"
-alias gpu="git push -u origin/master"
+alias gpu="git push -u origin master"
 alias gf="git fetch"
 alias gm="git merge origin/master"
 alias gco="git checkout"
@@ -73,14 +89,13 @@ alias gsta="git stash"
 alias gstp="git stash pop"
 alias gcob="git checkout -b"
 alias gaa="git add --all"
-alias gc="git commit"
+cm () {
+ git commit -m "$*";
+}
 alias gca="git commit --ammend"
 alias gl="git log"
 alias glg="git log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
-
-function gccm () {
-  git commit -m "$*";
-}
+alias sta="git status"
 
 alias hpush="git push heroku master"
 
@@ -93,6 +108,7 @@ alias nstart="sudo nginx"
 alias nstop="sudo nginx -s stop"
 alias nreload="sudo nginx -s reload"
 alias nstat="sudo lsof -i -P"
+alias x='chmod +x $1'
 
 
 # Vagrant
@@ -187,7 +203,7 @@ alias bu="bundle update"
 alias bc="bundle check"
 alias be="bundle exec"
 alias bo="bundle open"
-alias grd="spring guard"
+alias grd="bundle exec guard"
 
 alias bwin="bower install --save"
 alias bwit="bower init"
@@ -223,7 +239,14 @@ function tcwd () {
 alias start='consular start'
 alias edit='consular edit'
 alias pryr="pry -r ./config/environment -r rails/console/app -r rails/console/helpers"
-alias fs="bundle exec foreman start"
+fs () {
+  if test -f ./Procfile.development
+  then
+    bundle exec foreman start -f Procfile.development
+  else
+    bundle exec foreman start
+  fi
+}
 alias gemspeed='bundle exec ruby -e "$(curl -fsSL https://gist.github.com/raw/2588879/benchmark.rb)" | sort -n -k4'
 alias i="identify"
 alias srv="http-server -p 3001"

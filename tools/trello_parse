@@ -1,0 +1,38 @@
+#! /usr/bin/env ruby
+require 'pry'
+require 'json'
+require 'chronic'
+
+if ARGV.empty?
+  puts <<-HELP
+Usage:
+#{$0.split("/").last} name_of_list_in_trello path_to_json_file
+
+HELP
+  exit(-1)
+end
+
+LIST_NAME = ARGV.shift
+FILE_PATH = ARGV.shift
+
+text = File.read(FILE_PATH)
+json = JSON.parse text
+
+lists = json["lists"]
+list = lists.detect { |l| l["name"] == LIST_NAME }
+cards = json["cards"].select { |member| member["idList"] == list["id"] }
+
+est = cards.map { |c| c["desc"].match(/est: (.+)$/) }
+est = est.compact.map(&:captures).flatten.map { |t|
+  now = Time.now
+  puts t.inspect
+  (Chronic.parse("#{t} from now") - now).round
+}.inject(0, &:+)
+
+real = cards.map { |c| c["desc"].match(/real: (.+)$/) }
+real = real.compact.map(&:captures).flatten.map { |t|
+  now = Time.now
+  (Chronic.parse("#{t} from now") - now).round
+}.inject(0, &:+)
+
+puts "estimated: #{est}\nreal: #{real}"

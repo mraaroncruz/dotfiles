@@ -1,0 +1,8 @@
+#! /usr/bin/env ruby
+
+%w(LICENSE Makefile *.json *.less).each do |entry|
+  puts "Removing #{entry}..."
+  `find ./app/assets/{javascripts,stylesheets}/bower/bower_components -name '#{entry}' | xargs rm`
+end
+puts ""
+puts "Done, assets should compile now"
