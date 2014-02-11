@@ -13,7 +13,6 @@ set term=screen-256color
 set t_Co=256
 
 set background=light
-" set background=dark
 let g:solarized_termcolors=16
 so ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
 

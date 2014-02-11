@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+require 'highline/import'
+
+trap(:INT) { puts "\nGoodbye!"; exit(1) }
+
+puts "Welcome to ration! Ration helps you with aspect ratio calculations.\n\n"
+
+w = ask('Original width? ', Float)
+h = ask('Original height? ', Float)
+which = ask('Width or height [w|h]? ')
+
+unless %w(w h).include? which
+  puts "Bad input bra!"
+  exit(-1) 
+end
+
+length = ask("New #{which == 'w' ? 'width' : 'height'}? ", Float)
+
+if which == "w"
+  val = (h/w) * length
+  puts "#{length.to_i}x#{val.to_i}"
+elsif which == "h"
+  val = (w/h) * length
+  puts "#{val.to_i}x#{length.to_i}"
+end
