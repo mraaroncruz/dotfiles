@@ -1,0 +1,4 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=4138
+
+This little script is a plugin for the NERDTree plugin. It adds a new key (w) for the NERDTree which toggles its width between the normal width and the width of the longest file name.
+Quite useful if you want to have a clear view on your files and don't want to maximize your NERDTree.

@@ -56,6 +56,27 @@ export VISUAL=vim
 # Edit this file
 alias zrc="vim ~/.zshrc && source ~/.zshrc"
 
+export_local_env_vars () {
+  for line in `cat .env`
+  do
+    echo $line
+    export $line
+  done
+}
+
+cd() {
+  builtin cd $*
+  if [ -f .env ]
+  then
+    export_local_env_vars
+  fi
+  if [ -f .project ]
+  then
+    . ./.project
+  fi
+}
+
+
 # Edit vimrc
 alias vimrc="vim $HOME/.vimrc"
 
@@ -372,7 +393,10 @@ export SAVEHIST=$HISTSIZE
 export WORDCHARS='*?[]~&;!$%^<>'
 export ACK_COLOR_MATCH='red'
 # Rails perf increase https://gist.github.com/1688857
+<<<<<<< HEAD
 #export RUBY_HEAP_MIN_SLOTS=1000000
+=======
+>>>>>>> origin/osx
 export RUBY_GC_HEAP_INIT_SLOTS=1000000
 export RUBY_HEAP_SLOTS_INCREMENT=1000000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
