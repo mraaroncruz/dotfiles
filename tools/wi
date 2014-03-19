@@ -1,0 +1,181 @@
+#!/usr/bin/env ruby
+#require 'minitest/autorun'
+require 'minitest/spec'
+require 'minitest/pride'
+
+###################################
+# Readme
+#
+# Outside API:
+# Whois.get_available("foo")
+# => ["foo.com", "foo.org", "foo.us"]
+#
+# Inside API
+# tlds = []
+#
+# name = "poopwitharms"
+#
+# ioprovider = IoProvider.new(name)
+# comprovider = ComProvider.new(name)
+# providers = [ioprovider, comprovider]
+#
+# req = Whois::Requests.new(providers)
+# req.on_complete do |provider, res|
+#   tlds.push provider.tld if provider.name_available?
+# end
+#
+# req.run
+#
+###
+
+module Whois
+  class Provider
+
+    attr_reader :response
+
+    def self.tld _tld
+      @tld = _tld
+    end
+
+    def self.get_tld
+      @tld
+    end
+
+    def initialize name
+      @name = name
+    end
+
+    def tld
+      self.class.get_tld
+    end
+
+    def to_command
+      "whois #{name_with_tld}"
+    end
+
+    def name_available?
+      self.parse_availibility
+    end
+
+    def parse_availibility
+      raise StandardError.new "Not implemented yet"
+    end
+
+    def name_with_tld
+      "#{@name}.#{tld}"
+    end
+
+    def call
+      @response = %x[#{self.to_command}]
+    end
+
+  end
+end
+
+class IoProvider < Whois::Provider
+  tld :io
+  def parse_availibility
+    !@response.match(/Status/)
+  end
+end
+
+class ComProvider < Whois::Provider
+  tld :com
+  def parse_availibility
+    !@response.match(/Domain Name/)
+  end
+end
+
+class NetProvider < ComProvider
+  tld :net
+end
+
+class OrgProvider < ComProvider
+  tld :org
+end
+
+class UsProvider < ComProvider
+  tld :us
+end
+
+module Whois
+
+  def self.get_available name
+    providers = [ComProvider,NetProvider,OrgProvider,IoProvider,UsProvider]
+    tlds = []
+    req = Requests.new(name, providers)
+    req.on_complete do |provider|
+      tlds << provider.name_with_tld if provider.name_available?
+    end
+    req.run
+    tlds = ["Not available"] if tlds.empty?
+    tlds
+  end
+
+  class Requests
+    def initialize name, providers
+      @providers = providers.map { |provider| provider.new(name) }
+    end
+
+    def on_complete &blk
+      @on_complete_block = blk
+    end
+
+    def run
+      threads = @providers.map { |p|
+        Thread.new do
+          p.call
+          @on_complete_block[p]
+        end
+      }
+      threads.each(&:join)
+    end
+  end
+end
+
+describe "get_available" do
+  it "returns available tlds" do
+    available = Whois.get_available("example")
+    available.wont_include "example.com"
+    weird = "oijoijoijoij128878"
+    available = Whois.get_available(weird)
+    available.must_include "#{weird}.com"
+  end
+end
+
+describe "IoProvider" do
+  it "knows it's tld" do
+    assert_equal :io, IoProvider.new("test").tld
+  end
+
+  describe "name_available?" do
+    it "accepts available domain" do
+      p = IoProvider.new("fooaopjpoj2323232323")
+      p.call
+      assert p.name_available?
+    end
+
+    it "denies an unavailable domain" do
+      p = IoProvider.new("foo")
+      p.call
+      refute p.name_available?
+    end
+  end
+
+  describe "interface" do
+    it "responds to call" do
+      p = IoProvider.new("foo")
+      assert p.respond_to? :call
+    end
+  end
+end
+
+describe "Whois::Requests" do
+  it "accepts a list of proivders"
+  describe "on_complete" do
+    it "returns providers to block"
+  end
+end
+
+puts Whois.get_available(ARGV.shift)
+

@@ -1,0 +1,14 @@
+'use strict'
+
+angular.module('${1:moduleName}')
+  .directive '${2:directiveName}', ->
+	template: """
+	  ${3}
+	"""
+	restrict: 'EA'
+	replace: true
+	scope:
+	  collection: "="
+	compile: (element, attrs) ->
+	controller: ($scope) ->
+	link: (scope, element, attrs) ->

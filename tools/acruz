@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+require 'json'
+require 'typhoeus'
+require 'user_config'
+require 'thor'
+
+class ACRUZ < Thor
+  desc "setup", "configure acruz authorization"
+  def setup
+    username = ask("What is your username? ", :yellow)
+    password = ask("What is your password? ", :yellow)
+    config["username"] = username
+    config["password"] = password
+    config.save
+  end
+
+  desc "shorten", "shorten url"
+  def shorten(url)
+    puts client.new(url,config).shorten
+  end
+
+  private
+  def client
+    Struct.new(:url,:config) do
+      def shorten
+        user = config["username"]
+        pass = config["password"]
+        res = Typhoeus::Request.post("http://acr.uz/api/v1/urls", body: { url: url }, userpwd: "#{user}:#{pass}")
+        json = JSON.parse res.body
+        key = json["key"]
+        "http://acr.uz/#{key}"
+      end
+    end
+  end
+
+  def config
+    @config ||= UserConfig.new(".config/apps")["acruz.yaml"]
+  end
+end
+
+
+ACRUZ.start

@@ -207,6 +207,10 @@ alias grd="bundle exec guard"
 
 alias bwin="bower install --save"
 alias bwit="bower init"
+alias bws="bower search"
+alias bwu="bower uninstall"
+alias bwcat="cat bower.json"
+
 
 alias migrate="rake db:migrate"
 alias dpl="cap deploy"
@@ -218,6 +222,10 @@ alias ntest="sudo nginx -t $*"
 
 alias rbgrep="grep --include='*.rb' $*"
 alias r="bundle exec rails"
+alias rc="bundle exec rails console"
+alias rcp="bundle exec rails console production"
+alias rct="bundle exec rails console test"
+alias rdb="bundle exec rails dbconsole"
 alias rdbm="bundle exec rake db:migrate db:test:prepare"
 alias rdbr="bundle exec rake db:rollback"
 
@@ -229,7 +237,33 @@ alias rr='rbenv rehash'
 alias cpl="bundle exec rake assets:precompile"
 alias clean="budle exec rake assets:clean"
 
-alias sr="screen -r"
+# yeoman
+angular() {
+  if [ $1 = "scaffold" ]
+  then
+    yo angular:service $2 --minsafe --coffee
+
+    yo angular:route $2_index --minsafe --coffee
+    yo angular:route $2_new   --minsafe --coffee
+    yo angular:route $2_edit  --minsafe --coffee
+
+  else
+    yo angular:$1 $2 --minsafe --coffee
+  fi
+}
+alias ng="angular"
+alias nginit="yo angular --coffee"
+alias gt="grunt --stack"
+
+# MISC TOOLS
+alias ac="acruz shorten"
+alias server="python -m SimpleHTTPServer"
+
+# SYSTEM
+mcd () {
+    mkdir -p "$@" && cd "$@"
+}
+alias mkc=mcd
 
 alias t="TERM=screen-256color-bce tmux"
 function tcwd () {
@@ -310,6 +344,18 @@ function whodoneit() {
     )
 }
 
+# Mindster
+mstage() {
+  heroku $1 $2 --app mindster-staging
+}
+
+mprod() {
+  heroku $1 $2 --app mindstertalent
+}
+
+alias mdeploys="git push staging master"
+alias mdeployp="git push heroku master"
+
 # Git tab completion
 # source ~/.git-completion.bash
 
@@ -326,7 +372,8 @@ export SAVEHIST=$HISTSIZE
 export WORDCHARS='*?[]~&;!$%^<>'
 export ACK_COLOR_MATCH='red'
 # Rails perf increase https://gist.github.com/1688857
-export RUBY_HEAP_MIN_SLOTS=1000000
+#export RUBY_HEAP_MIN_SLOTS=1000000
+export RUBY_GC_HEAP_INIT_SLOTS=1000000
 export RUBY_HEAP_SLOTS_INCREMENT=1000000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 export RUBY_GC_MALLOC_LIMIT=1000000000

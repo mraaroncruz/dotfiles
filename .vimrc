@@ -12,16 +12,54 @@ call pathogen#runtime_append_all_bundles()
 set term=screen-256color
 set t_Co=256
 
-set background=light
+" set background=light
+set background=dark
 let g:solarized_termcolors=16
 so ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
 
 syntax on
+" let g:hybrid_use_Xresources = 1
+
+" colorscheme hybrid
 " colorscheme maroloccio3
 " colorscheme zenburn
 colorscheme solarized
 set guifont=Mensch:h13
 set antialias
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CUSTOM AUTOCMDS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup vimrcEx
+  " Clear all autocmds in the group
+  autocmd!
+  autocmd FileType text setlocal textwidth=78
+  " Jump to last cursor position unless it's invalid or in an event handler
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  "for ruby, autoindent with two spaces, always expand tabs
+  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
+  autocmd FileType python set sw=4 sts=4 et
+
+  autocmd! BufRead,BufNewFile *.sass setfiletype sass 
+
+  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
+  autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
+
+  " Indent p tags
+  " autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
+
+  " Don't syntax highlight markdown because it's often wrong
+  autocmd! FileType mkd setlocal syn=off
+
+  " Leave the return key alone when in command line windows, since it's used
+  " to run commands there.
+  autocmd! CmdwinEnter * :unmap <cr>
+  autocmd! CmdwinLeave * :call MapCR()
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Splits
@@ -97,13 +135,16 @@ map <C-l> :CtrlPClearCache<CR>
 nnoremap ' `
 nnoremap ` '
 
+" easier copy to clipboard
+map <leader>y "*y"
+
 set backup                    " keep a backup file
 set hidden                    " Allow Vim to manage hidden buffers effectively
 set history=500               " keep 500 lines of command line history
 set ruler                     " show the cursor position all the time
 set showcmd                   " display incomplete commands
 set incsearch                 " do incremental searching
-" set number                    " show line numbers
+set number                    " show line numbers
 
 runtime macros/matchit.vim    " Enable extended % matching
 
@@ -297,6 +338,8 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 " map <C-f> <C-w>_<C-w><Pipe>
+map <leader>+ :call MaximizeToggle ()<CR>
+map <leader>= <C-w>=
 
 nnoremap <C-W>O :call MaximizeToggle ()<CR>
 nnoremap <C-W>o :call MaximizeToggle ()<CR>
@@ -454,7 +497,7 @@ map <Leader>rn :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%"))
 " Run command without sending sending a return
 map <Leader>rq :call VimuxRunCommand("clear; spring rspec " . bufname("%"), 0)<CR>
 " Run the current file with spinach
-map <Leader>rs :call VimuxRunCommand("clear; spring spinach " . bufname("%"))<CR>
+map <Leader>rs :call VimuxRunCommand("clear; zeus rspec " . bufname("%"))<CR>
 " Prompt for a command to run map"
 map <Leader>vp :VimuxPromptCommand<CR>
 " Run last command executed by VimuxRunCommand
@@ -482,3 +525,39 @@ endif
 " vim-airline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:airline#extensions#tabline#enabled = 1
+if executable('coffeetags')
+  let g:tagbar_type_coffee = {
+        \ 'ctagsbin' : 'coffeetags',
+        \ 'ctagsargs' : '',
+        \ 'kinds' : [
+        \ 'f:functions',
+        \ 'o:object',
+        \ ],
+        \ 'sro' : ".",
+        \ 'kind2scope' : {
+        \ 'f' : 'object',
+        \ 'o' : 'object',
+        \ }
+        \ }
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" cscope
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function LoadCscope()
+	if (executable("cscope") && has("cscope"))
+		let UpperPath = findfile("cscope.out", ".;")
+		if (!empty(UpperPath))
+			let path = strpart(UpperPath, 0, match(UpperPath, "cscope.out$") - 1)	
+			if (!empty(path))
+				let s:CurrentDir = getcwd()
+				let direct = strpart(s:CurrentDir, 0, 2) 
+				let s:FullPath = direct . path
+				let s:AFullPath = globpath(s:FullPath, "cscope.out")
+				let s:CscopeAddString = "cs add " . s:AFullPath . " " . s:FullPath 
+				execute s:CscopeAddString 
+			endif
+		endif
+	endif
+endfunction
+command LoadCscope call LoadCscope()
