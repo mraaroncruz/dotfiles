@@ -394,9 +394,12 @@ export WORDCHARS='*?[]~&;!$%^<>'
 export ACK_COLOR_MATCH='red'
 # Rails perf increase https://gist.github.com/1688857
 <<<<<<< HEAD
+<<<<<<< HEAD
 #export RUBY_HEAP_MIN_SLOTS=1000000
 =======
 >>>>>>> origin/osx
+=======
+>>>>>>> f73fdfdb517a500224689e9baa2023ccb3c896e0
 export RUBY_GC_HEAP_INIT_SLOTS=1000000
 export RUBY_HEAP_SLOTS_INCREMENT=1000000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
