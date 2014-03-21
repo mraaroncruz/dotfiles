@@ -21,7 +21,7 @@ if program_exists go; then
 	setupGOROOT
 fi
 # Customize to your needs...
-export PATH=$HOME/.dotfiles/tools:$HOME/bin:/usr/local/share/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=$HOME/.dotfiles/tools:$HOME/bin:/usr/local/opt/postgresql/bin:/usr/local/bin:/usr/local/share/npm/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 # Android SDK
 export PATH=/usr/local/android/sdk/platform-tools:/usr/local/android/sdk/tools:$PATH
@@ -32,7 +32,7 @@ if [ -d "$HOME/.rbenv" ]; then
 fi
 
 # Derp derp
-export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+#export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
 
 # Rubygems cache proxy
 export GEM_SOURCE=http://yarp.dev
@@ -213,7 +213,7 @@ alias shortcuts="bind -P | less"
 
 alias nodedoc="open /usr/local/src/nodejs_all/node-v0.3.0/doc/api.html"
 
-alias v="vim ."
+alias v="mvim -v ."
 alias m="mvim ."
 alias s.="open -a 'Sublime Text 2' ."
 alias s="open -a 'Sublime Text 2'"

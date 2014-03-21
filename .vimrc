@@ -7,6 +7,11 @@ call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Clipboard shit
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set clipboard=unnamed
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set term=screen-256color
@@ -61,6 +66,9 @@ cmap w!! %!sudo tee > /dev/null %
 " better up down on wrapped
 nnoremap j gj
 nnoremap k gk
+
+" clipboard motherfucker
+map <leader>y "*y
 
 " open .vimrc
 nmap gr :sp ~/.vimrc<cr>

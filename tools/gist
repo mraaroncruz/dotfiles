@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+require 'uri'
+require 'net/http'
+require 'json'
+
+def get_gists current_page
+  uri = URI("https://api.github.com/users/pferdefleisch/gists?page=#{current_page}")
+  res = Net::HTTP.get_response(uri)
+  JSON.parse(res.body)
+end
+
+def print_welcome
+  puts "Choose a gist"
+  puts "---------------------------------"
+end
+
+def print_gists_for_current_page page=1
+  gists = get_gists page
+
+  gists.each_with_index do |g, i|
+    n = ((page - 1) * 30)
+    puts "%i. %s" % [i+n, g["description"]]
+  end
+
+  print "Which number? (or 'n' gets more results)"
+
+  input = gets.strip
+
+  if input == "n"
+    print_gists_for_current_page page+1
+  else
+    puts "Thank you!"
+    n = (page - 1) * 30
+    `open #{gists[input.to_i - n]["html_url"]}`
+  end
+end
+
+print_welcome
+print_gists_for_current_page
