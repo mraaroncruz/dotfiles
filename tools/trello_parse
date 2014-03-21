@@ -25,7 +25,6 @@ cards = json["cards"].select { |member| member["idList"] == list["id"] }
 est = cards.map { |c| c["desc"].match(/est: (.+)$/) }
 est = est.compact.map(&:captures).flatten.map { |t|
   now = Time.now
-  puts t.inspect
   (Chronic.parse("#{t} from now") - now).round
 }.inject(0, &:+)
 

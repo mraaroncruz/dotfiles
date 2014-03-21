@@ -12,6 +12,7 @@
     aliases = config --get-regexp alias
     au = add --update
     b = branch
+    bug = "!f() { git checkout -b bug/$1; }; f"
     c = commit
     ca = commit --amend
     changes = diff --name-status -r
@@ -23,6 +24,7 @@
     div = divergence
     ds = diff --staged
     f = fetch
+    feature = "!f() { git checkout -b feature/$1; }; f"
     h = help
     irb = rebase --interactive
     ksdiff = difftool -y -t Kaleidoscope
@@ -59,6 +61,7 @@
     undo = reset --soft HEAD^
     wd = diff --color-words
     wds = diff --color-words --staged
+    puss = "!sh -c 'cat ~/.asciicat.txt'"
 
 [advice]
     pushNonFastForward = false

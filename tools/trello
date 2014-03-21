@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require 'thor'
+require 'trello'
+require 'user_config'
+
+class TrelloCMD < Thor
+  desc "setup", "configure trello authorization"
+  def setup
+    key = ask("What is your app key? ", :yellow)
+    token = ask("What is your app token? ", :yellow)
+    config["key"]   = key
+    config["token"] = token
+    config.save
+  end
+
+  desc "orgs", "list your organizations"
+  def orgs
+    configure
+    orgz = me.organizations
+    orgz.each_with_index { |o,i| puts "#{i + 1}. #{o.name}" }
+  end
+
+  desc "boards", "list your boards"
+  def boards
+    configure
+    boards = me.boards
+    boards.each_with_index { |b,i| puts "#{i + 1}. #{b.name}" }
+  end
+
+  desc "add", "add a card to a board"
+  def add
+  end
+
+  private
+
+  def me
+    @me ||= Trello::Member.find("me")
+  end
+
+  def config
+    @config ||= UserConfig.new(".config/apps")["trello.yaml"]
+  end
+
+  def key
+    config["key"]
+  end
+
+  def token
+    config["token"]
+  end
+
+  def configure
+    Trello.configure do |config|
+      config.developer_public_key = key
+      config.member_token = token
+    end
+  end
+end
+
+TrelloCMD.start
