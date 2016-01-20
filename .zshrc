@@ -1,9 +1,16 @@
 #unsetopt correct_all
 unsetopt correct
+autoload zmv
 
 #
 # Place this code to your .profile, .bashrc, .bash_profile or whatever
 #
+
+alias h="hoodie start"
+
+if [[ $TERM == xterm ]]; then
+    TERM=xterm-256color
+fi
 
 program_exists () {
 	type "$1" &> /dev/null ;
@@ -12,19 +19,25 @@ program_exists () {
 if program_exists go; then
 	function setupGOROOT()
 	{
-		local GOPATH=`which go`
-		local GODIR=`dirname $GOPATH`
-		local GOPATH_BREW_RELATIVE=`readlink $GOPATH`
-		local GOPATH_BREW=`dirname $GOPATH_BREW_RELATIVE`
-		export GOROOT=`cd $GODIR; cd $GOPATH_BREW/..; pwd`
+        export GOPATH=$HOME/Go
+        export PATH=$PATH:$GOPATH/bin
+		#local GOPATH=`which go`
+		#local GODIR=`dirname $GOPATH`
+		#local GOPATH_BREW_RELATIVE=`readlink $GOPATH`
+		#local GOPATH_BREW=`dirname $GOPATH_BREW_RELATIVE`
+		#export GOROOT=`cd $GODIR; cd $GOPATH_BREW/..; pwd`
 	}
 	setupGOROOT
 fi
+
 # Customize to your needs...
-export PATH=$HOME/.dotfiles/tools:$HOME/bin:/usr/local/opt/postgresql/bin:/usr/local/bin:/usr/local/share/npm/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=$GOPATH/bin:PATH:/usr/local/opt/go/libexec/bin:$HOME/.dotfiles/tools:$HOME/bin:/usr/local/opt/postgresql/bin:/usr/local/bin:/usr/local/share/npm/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 # Android SDK
-export PATH=/usr/local/android/sdk/platform-tools:/usr/local/android/sdk/tools:$PATH
+#export PATH=/usr/local/opt/android-sdk/platform-tools:/usr/local/opt/android-sdk/tools:$PATH
+#export ANDROID_HOME=/usr/local/opt/android-sdk
+export ANDROID_HOME=/Users/aaron/Android/sdk
+export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH
 
 if [ -d "$HOME/.rbenv" ]; then
   export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH
@@ -35,7 +48,7 @@ fi
 #export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
 
 # Rubygems cache proxy
-export GEM_SOURCE=http://yarp.dev
+#export GEM_SOURCE=http://yarp.dev
 
 #
 # Executes commands at the start of an interactive session.
@@ -49,6 +62,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+
 # Customize to your needs...
 export EDITOR=vim
 export VISUAL=vim
@@ -60,22 +74,59 @@ export_local_env_vars () {
   for line in `cat .env`
   do
     echo $line
-    export $line
+    #export $line
   done
 }
 
-cd() {
-  builtin cd $*
-  if [ -f .env ]
-  then
-    export_local_env_vars
-  fi
-  if [ -f .project ]
-  then
-    . ./.project
-  fi
+# RAMDisk
+ramdisk() {size=$(($1 * 2097152))
+    diskutil eject /Volumes/ramdisk > /dev/null 2>&1
+    diskutil erasevolume HFS+ 'ramdisk' `hdiutil attach -nomount ram://$size`
+    cd /Volumes/ramdisk }
+
+rdestroy() {hdiutil eject /Volumes/ramdisk}
+
+# Pretty curl for JSON
+alias curlj="curl --silent "$1" | prettyjson" 
+# Curl headers only
+alias curlh="curl -s -D - $1 -o /dev/null"
+
+# Wrap cd because I'm a hacker
+#cd() {
+  #builtin cd $*
+  #if [ -f .env ]
+  #then
+    #export_local_env_vars
+  #fi
+  #if [ -f .project ]
+  #then
+    #. ./.project
+  #fi
+#}
+
+# PostgreSQL
+pg () {
+  DATA="$1"
+  PORT=${2-5432}
+  postgres -D $DATA -p $PORT
 }
 
+create-project-db () {
+  U=$1
+  DB=$2
+  DBPATH=tmp/postgres
+  PORT=9911
+
+  initdb $DBPATH
+  postgres -D $DBPATH -p $PORT &
+  sleep 5
+  PID=$!
+  createuser -s -p $PORT $U
+  createdb -p $PORT -O $U $DB
+  echo "Created database $DB for user $U"
+
+  kill -INT $PID
+}
 
 # Edit vimrc
 alias vimrc="vim $HOME/.vimrc"
@@ -90,7 +141,7 @@ alias hack="cd $HOME/Hack"
 alias dotfiles="cd $HOME/.dotfiles"
 
 # PHONEGAP
-alias pg="phonegap"
+#alias pg="phonegap"
 alias pgb="phonegap build"
 alias pgbi="phonegap build ios"
 alias pgba="phonegap build android"
@@ -106,6 +157,8 @@ alias gf="git fetch"
 alias gm="git merge origin/master"
 alias gco="git checkout"
 alias gst="git status"
+alias s="git status"
+alias dif="git diff"
 alias gsta="git stash"
 alias gstp="git stash pop"
 alias gcob="git checkout -b"
@@ -120,6 +173,7 @@ alias sta="git status"
 
 alias hpush="git push heroku master"
 
+alias rubby="bundle exec ruby"
 alias spk="bundle exec spork cucumber & bundle exec spork"
 alias iphone="open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app"
 alias sstr="sudo apachectl start"
@@ -145,48 +199,33 @@ alias vssh='vagrant ssh'
 alias dp='cap deploy'
 
 # Projects
-function proj () {
-  current=~/.config/consular/current
-  if [[ -n $1 ]]; then
-    echo "Starting $1..."
-    consular start $1
-    return
-  fi
-  if [[ -f "$current" ]]; then
-    project=`cat $current`
-    echo "Starting $project..."
-    consular start $project
-    return
-  fi
+#function proj () {
+  #current=~/.config/consular/current
+  #if [[ -n $1 ]]; then
+    #echo "Starting $1..."
+    #consular start $1
+    #return
+  #fi
+  #if [[ -f "$current" ]]; then
+    #project=`cat $current`
+    #echo "Starting $project..."
+    #consular start $project
+    #return
+  #fi
+#}
+#
+#function setproj () {
+  #current=~/.config/consular/current
+  #if [ -f "$current" ]; then rm -f $current; fi
+  #echo $1 > $current
+#}
+
+alias proj="$PWD/bin/project"
+
+function perf {
+  curl -o /dev/null  -s -w "%{time_connect} + %{time_starttransfer} = %{time_total}\n" $@
 }
 
-function setproj () {
-  current=~/.config/consular/current
-  if [ -f "$current" ]; then rm -f $current; fi
-  echo $1 > $current
-}
-
-# Projects
-function proj () {
-  current=~/.config/consular/current
-  if [[ -n $1 ]]; then
-    echo "Starting $1..."
-    consular start $1
-    return
-  fi
-  if [[ -f "$current" ]]; then
-    project=`cat $current`
-    echo "Starting $project..."
-    consular start $project
-    return
-  fi
-}
-
-function setproj () {
-  current=~/.config/consular/current
-  if [ -f "$current" ]; then rm -f $current; fi
-  echo $1 > $current
-}
 
 # Ruby Apps
 alias prodlog="tail -n 300 -f log/production.log"
@@ -198,7 +237,7 @@ alias phpdoc="thor php:open"
 alias powstop="curl get.pow.cx/uninstall.sh | sh"
 alias powstart="curl get.pow.cx | sh"
 
-alias g="git"
+alias g="hub"
 alias ports="sudo lsof -i -P"
 export EDITOR="vim"
 ## terminal color fun
@@ -214,9 +253,8 @@ alias shortcuts="bind -P | less"
 alias nodedoc="open /usr/local/src/nodejs_all/node-v0.3.0/doc/api.html"
 
 alias v="mvim -v ."
-alias m="mvim ."
-alias s.="open -a 'Sublime Text 2' ."
-alias s="open -a 'Sublime Text 2'"
+alias sub="open . -a 'Sublime Text 2'"
+alias app="open . -a Appcode"
 alias duh='du -csh'
 alias b="bundle"
 alias bi="bundle install --binstubs --without production"
@@ -247,8 +285,21 @@ alias rc="bundle exec rails console"
 alias rcp="bundle exec rails console production"
 alias rct="bundle exec rails console test"
 alias rdb="bundle exec rails dbconsole"
-alias rdbm="bundle exec rake db:migrate db:test:prepare"
-alias rdbr="bundle exec rake db:rollback"
+
+rdbm () {
+  if [ -f `pwd`/bin/rake ]
+  then
+    RAKE_CMD="./bin/rake"
+  else
+    RAKE_CMD="bundle exec rake"
+  fi
+  echo "Migrating dev database..."
+  $RAKE_CMD db:migrate
+  echo "Migrating test database..."
+  $RAKE_CMD db:migrate RAILS_ENV=test
+}
+
+alias rdbr="bundle exec rake db:rollback && bundle exec rake db:rollback RAILS_ENV=test"
 
 alias uni="bundle exec unicorn -p 3000"
 alias pm="bundle exec puma -p 3000"
@@ -279,6 +330,13 @@ alias gt="grunt --stack"
 # MISC TOOLS
 alias ac="acruz shorten"
 alias server="python -m SimpleHTTPServer"
+alias m="bundle exec middleman"
+flix () {
+  peerflix "`pbpaste`" --vlc -r
+}
+
+# Mongodb
+alias mgo="/usr/local/opt/mongodb/bin/mongod --config /usr/local/etc/mongod.conf"
 
 # SYSTEM
 mcd () {
@@ -286,29 +344,34 @@ mcd () {
 }
 alias mkc=mcd
 
-alias t="TERM=screen-256color-bce tmux"
+alias t="tmux -2"
 function tcwd () {
   tmux set-option default-path $PWD
 }
+alias tml="tmux list-sessions"
+alias tma="tmux -2 attach -t $1"
+alias tmk="tmux kill-session -t $1"
+source $HOME/bin/tmuxinator.zsh
 
 alias start='consular start'
 alias edit='consular edit'
 alias pryr="pry -r ./config/environment -r rails/console/app -r rails/console/helpers"
 fs () {
-  if test -f ./Procfile.development
+  if test -f ./Procfile.dev
   then
-    bundle exec foreman start -f Procfile.development
+    bundle exec foreman start -f Procfile.dev
   else
     bundle exec foreman start
   fi
 }
+alias dev="foreman start -f Procfile.dev"
 alias gemspeed='bundle exec ruby -e "$(curl -fsSL https://gist.github.com/raw/2588879/benchmark.rb)" | sort -n -k4'
 alias i="identify"
 alias srv="http-server -p 3001"
 # Handy Functions
-c() { cd ~/Projects/$1;  }
+c() { cd ~/Work/$1;  }
 
-_c() { _files -W ~/Projects -/; }
+_c() { _files -W ~/Work -/; }
 compdef _c c
 
 # Z
@@ -344,6 +407,12 @@ function model {
     done
 }
 
+# restart postgres if crash
+resetpg () {
+  rm -f /usr/local/var/postgres/postmaster.pid
+  pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log -m immediate start
+}
+
 # ACTUAL CUSTOMIZATION OH NOES!
 bindkey "^[[3~" delete-char
 
@@ -365,6 +434,10 @@ function whodoneit() {
     )
 }
 
+blamestats() {
+    git ls-tree --name-only -z -r HEAD -- $1 | xargs -0 -n1 git blame --line-porcelain | grep "^author "|sort|uniq -c|sort -nr
+}
+
 # Mindster
 mstage() {
   heroku $1 $2 --app mindster-staging
@@ -374,6 +447,17 @@ mprod() {
   heroku $1 $2 --app mindstertalent
 }
 
+# Syntax highlighting
+hl () {
+  filename=".tmp.highlight"
+  lang=$1
+  pbpaste > ${filename}
+  highlight --syntax=${lang} --font=Mensch --font-size=30 --style=solarized-dark -O rtf < ${filename} | pbcopy
+  rm -f ${filename}
+}
+
+eval $(thefuck --alias)
+
 alias mdeploys="git push staging master"
 alias mdeployp="git push heroku master"
 
@@ -382,6 +466,8 @@ alias mdeployp="git push heroku master"
 
 # Unbreak broken, non-colored terminal
 export TERM='xterm-color'
+# Change term for tmux
+[ -n "$TMUX" ] && export TERM=screen-256color
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
 
@@ -393,9 +479,16 @@ export SAVEHIST=$HISTSIZE
 export WORDCHARS='*?[]~&;!$%^<>'
 export ACK_COLOR_MATCH='red'
 # Rails perf increase https://gist.github.com/1688857
+# Older Ruby
 #export RUBY_HEAP_MIN_SLOTS=1000000
-export RUBY_GC_HEAP_INIT_SLOTS=1000000
-export RUBY_HEAP_SLOTS_INCREMENT=1000000
-export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-export RUBY_GC_MALLOC_LIMIT=1000000000
-export RUBY_HEAP_FREE_MIN=500000
+# Newer Ruby
+#export RUBY_GC_HEAP_INIT_SLOTS=1000000
+#
+#export RUBY_HEAP_SLOTS_INCREMENT=1000000
+#export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+#export RUBY_GC_MALLOC_LIMIT=1000000000
+#export RUBY_HEAP_FREE_MIN=500000
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+

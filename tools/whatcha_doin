@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require 'terminal-notifier'
+#sender = "com.apple.Safari"
+sender = "com.dayoneapp.dayone"
+
+TerminalNotifier.notify('Click to record what you are doing',
+                        #execute: "open -b " << sender,
+                        appIcon: "/Users/aaron/Desktop/dayone.tiff",
+                        activate: sender,
+                        title: 'Activity update',
+                        subtitle: 'What are you doing?',
+                        sound: "default")
+
+#/bin/bash -l -c "/usr/local/bin/terminal-notifier -sound default -title 'Activity update' -subtitle 'What are you doing?' -message 'Click to record what you are doing' -activate 'com.dayoneapp.dayone' -sender 'com.dayoneapp.dayone'"

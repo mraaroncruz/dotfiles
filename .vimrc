@@ -9,7 +9,24 @@ call pathogen#runtime_append_all_bundles()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clipboard shit
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set clipboard=unnamed
+if $TMUX == ''
+  set clipboard+=unnamed
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ruby file load time
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if !empty($MY_RUBY_HOME)
+ let g:ruby_path = join(split(glob($MY_RUBY_HOME.'/lib/ruby/*.*')."\n".glob($MY_RUBY_HOME.'/lib/rubysite_ruby/*'),"\n"),',')
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Golang
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+au BufRead,BufNewFile *.go set filetype=go
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme/Colors
@@ -17,10 +34,11 @@ set clipboard=unnamed
 set term=screen-256color
 set t_Co=256
 
-" set background=light
-set background=dark
+set background=light
+" set background=dark
 let g:solarized_termcolors=16
 so ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
+call togglebg#map("<f5>")
 
 syntax on
 " let g:hybrid_use_Xresources = 1
@@ -28,6 +46,7 @@ syntax on
 " colorscheme hybrid
 " colorscheme maroloccio3
 " colorscheme zenburn
+" colorscheme peaksea
 colorscheme solarized
 set guifont=Mensch:h13
 set antialias
@@ -53,6 +72,7 @@ augroup vimrcEx
 
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
+  autocmd FileType ruby,js,sass,scss,coffee,yaml,html,rake,python autocmd BufWritePre <buffer> :%s/\s\+$//e
 
   " Indent p tags
   " autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
@@ -77,7 +97,7 @@ set splitright
 set textwidth=0
 set wrapmargin=0
 set complete=.,b,u,]
-map ,z :colorscheme grb256<cr>:set background=dark<cr>
+map ,z :colorscheme peaksea<cr>:set background=dark<cr>
 " let g:netrw_liststyle=3 " Use tree-mode as default view
 " let g:netrw_browse_split=4 " Open file in previous buffer
 " let g:netrw_preview=1 " preview window shown in a vertically split
@@ -95,6 +115,9 @@ au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 " Set irregular syntax highlighting
 au BufRead,BufNewFile *.hamlc setfiletype haml
 
+" Syntastic and angular
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
+
 " delimitmate no delay on <C-[> https://github.com/Raimondi/delimitMate/issues/87
 let delimitMate_no_esc_mapping = 1
 
@@ -105,9 +128,6 @@ cmap w!! %!sudo tee > /dev/null %
 nnoremap j gj
 nnoremap k gk
 
-" clipboard motherfucker
-map <leader>y "*y
-
 " open .vimrc
 nmap gr :sp ~/.vimrc<cr>
 
@@ -116,7 +136,7 @@ nmap gt i_<Esc>r
 nmap gb a_<Esc>r
 
 " Pressing return clears highlighted search
-nnoremap <CR> :nohlsearch<CR>/<BS>
+"" nnoremap <CR> :nohlsearch<CR><CR>
 
 " Make , the personal leader key
 let mapleader = ","
@@ -127,7 +147,7 @@ map ,, <C-^>
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-" imap jj <C-[>
+imap jj <C-[>
 
 " command t make escape work
 let g:CommandTCancelMap=['<ESC>']
@@ -143,9 +163,6 @@ map <C-l> :CtrlPClearCache<CR>
 nnoremap ' `
 nnoremap ` '
 
-" easier copy to clipboard
-map <leader>y "*y"
-
 set backup                    " keep a backup file
 set hidden                    " Allow Vim to manage hidden buffers effectively
 set history=500               " keep 500 lines of command line history
@@ -159,6 +176,7 @@ runtime macros/matchit.vim    " Enable extended % matching
 filetype on                   " detect the type of file
 filetype indent on            " Enable filetype-specific indenting
 filetype plugin on            " Enable filetype-specific plugins
+filetype plugin indent on
 
 set cf                        " enable error files and error jumping
 set ffs=unix,dos,mac          " support all three, in this order
@@ -240,8 +258,8 @@ vmap Q gq
 nmap Q gqap
 
 " Make the tab key match bracket pairs
-nnoremap <tab> %
-vnoremap <tab> %
+" nnoremap <tab> %
+" vnoremap <tab> %
 
 " Make ';' an alias for ':'
 nnoremap ; :
@@ -469,6 +487,9 @@ function! Snippet_RubyClassNameFromFilename()
     return NS_camelcase(name)
 endfunction
 
+" indent and add to element above
+vmap <leader>i >gvdkP
+
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
@@ -569,3 +590,5 @@ function LoadCscope()
 	endif
 endfunction
 command LoadCscope call LoadCscope()
+
+vmap <leader>y "*y
